@@ -22,7 +22,6 @@ def esearch(term, db='gds'):
     response = urllib.request.urlopen(url)
     return response.read()
 
-
 def get_esummary(esearch_string, db='gds'):
     """
     Parses a http response in XML format to obtain the webenv and querykey tokens.
@@ -41,25 +40,41 @@ def get_esummary(esearch_string, db='gds'):
         print(f"Unparsable publication string ({e}, search={esearch_string}")
         return ""
 
-#matplotlib to build the piechart
+#matplotlib to build the piechart, use pandas to create dataframe from blast output tsv
 fig, ax = plt.subplots()
 
-df = pd.read_csv(larp6_file, sep='\t')
+df = pd.read_csv(larp6_file, header=None, sep='\t')
 num_seqs = df.size
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
-#use groupby to find frequency of each sseq, stored in new dataframe
-sseq_count_series = df['sseqid'].value_counts()
+#matplotlib to build the piechart
+fig, ax = plt.subplots()
 
-#loop through series to determine which elements to remove and add into "other" column
-to_remove = []
-other_count = 0
+df = pd.read_csv(larp6_file, header=None, sep='\t')
+num_seqs = df.size
+df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
-print(num_seqs)
+df2 = df[['qseqid','sseqid','evalue']].copy()
+
+#blast output default is by best hit/lowest e value score, therefore add the first sseqid result for each qseqid
+sseqid_list = []
+qseqid_list = []
+for idx in df.index:
+        if df['qseqid'][idx] not in qseqid_list:
+                qseqid_list.append(df['qseqid'][idx])
+                sseqid_list.append(df['sseqid'][idx])
+sseqid_np = np.array(sseqid_list)
+
+df3 = pd.DataFrame(data = sseqid_np, columns=['sseqid'])
+print(df3)
+
+sseq_count_series = df3['sseqid'].value_counts()
+print(sseq_count_series)
+
 
 #taking 1% of number of sequences
 for index,values in sseq_count_series.iteritems():
-        if(values < (0.01)*(num_seqs/5)):
+        if(values < (0.01)*(num_seqs)):
                 to_remove.append(index)
                 other_count += values
 
@@ -108,15 +123,3 @@ wedgeprops={"linewidth": 1, "edgecolor": "white"})
 plt.title('unmapped sequences summary LARP6')
 plt.show(block=True)
 plt.savefig(filename[-1]+".png",format='png',bbox_inches='tight')
-
-
-
-
-
-
-
-
-
-
-
-
