@@ -1,0 +1,49 @@
+DB = "/projects/ps-yeolab3/bay001/annotations/nr/nt"
+
+rule all:
+    params:
+
+#extract random sample of 10000 unmapped reads from bam file, requires using samtools
+rule unmapped:
+    input:
+        bam="results/{sample}genome-mapped.bam"
+    output:
+        bam="larp6_unmapped/{sample}.bam"
+    conda:
+        "envs/samtools.yaml"
+    shell:
+        "samtools view -f 4 -s... {input} > {output}"
+
+#convert bam files to fasta files to run through blast
+rule bam_to_fasta:
+    input:
+        bam
+    output:
+        fasta={}
+    conda:
+        "envs/samtools.yaml"
+    shell:
+        "samtools fasta {input} > {output}"
+
+
+rule blast:
+    input:
+        fasta=
+    output:
+        blast_output="{sample}.blast_results.tsv"
+    conda:
+        "envs/blast.yaml"
+    shell:
+        """
+        blastn -db {DB} -query {input.fasta} -out {output.blast_output} -outfml 6 -max_target_seqs 5 -num_threads {params.num_threads};
+        """
+
+rule piechart:
+    input:
+        tsv=
+    output:
+        png=
+    conda:
+        "envs/python3.yaml"
+    script:
+        "blastresults_piechart.py"
