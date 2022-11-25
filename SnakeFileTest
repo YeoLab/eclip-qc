@@ -1,12 +1,13 @@
-DB = "/projects/ps-yeolab3/bay001/annotations/nr/nt"
+SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq"]
 
 rule all:
-    params:
+    input:
+        "larp6_unmapped/{sample}_unmapped_1mil.bam"
 
 #extract random sample of 10000 unmapped reads from bam file, requires using samtools
 rule unmapped:
     input:
-        bam="results/{sample}genome-mapped.bam"
+        bam="results/{sample}.genome-mapped.bam"
     output:
         bam="larp6_unmapped/{sample}.bam"
     conda:
