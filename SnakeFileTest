@@ -1,13 +1,13 @@
 rule all:
     input:
-        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq._unmapped_1mil.bam"
+        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq.txt"
 
 rule unmapped:
     input:
         bam="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN1.umi.r1.fq.genome-mapped.bam"
     output:
-        bam="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq._unmapped_1mil.bam"
+        txt="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq.txt"
     conda:
         "envs/samtools.yaml"
     shell:
-        "samtools view -f 4 -s... {input} > {output}"
+        "samtools view -c -f 4 {input.bam} > {output.txt}"
