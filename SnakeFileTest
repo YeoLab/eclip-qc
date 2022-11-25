@@ -1,15 +1,12 @@
-SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq"]
-
 rule all:
     input:
-        "larp6_unmapped/{sample}_unmapped_1mil.bam"
+        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq._unmapped_1mil.bam"
 
-#extract random sample of 10000 unmapped reads from bam file, requires using samtools
 rule unmapped:
     input:
-        bam="results/{sample}.genome-mapped.bam"
+        bam="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN1.umi.r1.fq.genome-mapped.bam"
     output:
-        bam="larp6_unmapped/{sample}.bam"
+        bam="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq._unmapped_1mil.bam"
     conda:
         "envs/samtools.yaml"
     shell:
