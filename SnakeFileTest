@@ -1,13 +1,22 @@
+SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq", "LARP6.CTRL_IN2.umi.r1.fq", "LARP6.CTRL_IP1.umi.r1.fq", "LARP6.CTRL_IP2.umi.r1.fq", "LARP6.TGFb_IN1.umi.r1.fq", "LARP6.TGFb_IN2.umi.r1.fq", "LARP6.TGFb_IP1.umi.r1.fq", "LARP6.TGFb_IP1.umi.r1.fq"]
+
 rule all:
     input:
-        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq.txt"
+        "LARP6.CTRL_IN1.umi.r1.fq.txt",
+        "LARP6.CTRL_IN2.umi.r1.fq.txt",
+        "LARP6.CTRL_IP1.umi.r1.fq.txt",
+        "LARP6.CTRL_IP2.umi.r1.fq.txt",
+        "LARP6.TGFb_IN1.umi.r1.fq.txt",
+        "LARP6.TGFb_IN2.umi.r1.fq.txt",
+        "LARP6.TGFb_IP1.umi.r1.fq.txt",
+        "LARP6.TGFb_IP2.umi.r1.fq.txt"
 
 rule unmapped:
     input:
-        bam="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN1.umi.r1.fq.genome-mapped.bam"
+        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/{SAMPLES}.genome-mapped.bam"
     output:
-        txt="/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/"LARP6.CTRL_IN1.umi.r1.fq.txt"
+        "{SAMPLES}.txt"
     conda:
         "envs/samtools.yaml"
     shell:
-        "samtools view -c -f 4 {input.bam} > {output.txt}"
+        "samtools view -c -f 4 {input} > {output}"
