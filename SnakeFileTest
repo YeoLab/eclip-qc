@@ -2,21 +2,31 @@ SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq", "LARP6.CTRL_IN2.umi.r1.fq", "LARP6.CTRL_I
 
 rule all:
     input:
-        "LARP6.CTRL_IN1.umi.r1.fq.txt",
-        "LARP6.CTRL_IN2.umi.r1.fq.txt",
-        "LARP6.CTRL_IP1.umi.r1.fq.txt",
-        "LARP6.CTRL_IP2.umi.r1.fq.txt",
-        "LARP6.TGFb_IN1.umi.r1.fq.txt",
-        "LARP6.TGFb_IN2.umi.r1.fq.txt",
-        "LARP6.TGFb_IP1.umi.r1.fq.txt",
-        "LARP6.TGFb_IP2.umi.r1.fq.txt"
+        "unmapped_counts/LARP6.CTRL_IN1.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.CTRL_IN2.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.CTRL_IP1.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.CTRL_IP2.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.TGFb_IN1.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.TGFb_IN2.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.TGFb_IP1.umi.r1.fq_unmapped_1mil.bam",
+        "unmapped_counts/LARP6.TGFb_IP2.umi.r1.fq_unmapped_1mil.bam"
 
-rule unmapped:
+rule unmapped_count:
     input:
         "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/{SAMPLES}.genome-mapped.bam"
     output:
-        "{SAMPLES}.txt"
+        "unmapped_counts/{SAMPLES}.txt"
     conda:
         "envs/samtools.yaml"
     shell:
         "samtools view -c -f 4 {input} > {output}"
+        
+rule unmapped_bam:
+    input:
+        "unmapped_counts/{SAMPLES}.txt"
+    output:
+        "unmapped_counts/{SAMPLES}_unmapped_1mil.bam"
+    conda:
+        "envs/python3.yaml"
+    shell:
+        "python3 script/one_mil_seqs.py {input} {output}"
