@@ -119,7 +119,7 @@ sseq = sseq_count_df['sseqid']
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
 wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-
+pieName = larp6_file + ".png"
 plt.title('unmapped sequences summary LARP6')
 plt.show(block=True)
-plt.savefig(filename[-1]+".png",format='png',bbox_inches='tight')
+plt.savefig(pieName,format='png',bbox_inches='tight')
