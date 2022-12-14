@@ -44,6 +44,9 @@ def get_esummary(esearch_string, db='gds'):
 #matplotlib to build the piechart, use pandas to create dataframe from blast output tsv
 fig, ax = plt.subplots()
 
+to_remove = []
+other_count = 0
+
 df = pd.read_csv(larp6_file, header=None, sep='\t')
 num_seqs = df.size
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
