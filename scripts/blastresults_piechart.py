@@ -83,7 +83,7 @@ print(num_seqs)
 
 #taking 1% of number of sequences
 for index,values in sseq_count_series.iteritems():
-        if(values < (0.01)*(num_seqs)):
+        if(values < (0.001)*(num_seqs)):
                 to_remove.append(index)
                 other_count += values
 
