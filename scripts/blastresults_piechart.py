@@ -22,6 +22,7 @@ def esearch(term, db='gds'):
     response = urllib.request.urlopen(url)
     return response.read()
 
+
 def get_esummary(esearch_string, db='gds'):
     """
     Parses a http response in XML format to obtain the webenv and querykey tokens.
@@ -39,13 +40,6 @@ def get_esummary(esearch_string, db='gds'):
     except IndexError as e:
         print(f"Unparsable publication string ({e}, search={esearch_string}")
         return ""
-
-#matplotlib to build the piechart, use pandas to create dataframe from blast output tsv
-fig, ax = plt.subplots()
-
-df = pd.read_csv(larp6_file, header=None, sep='\t')
-num_seqs = df.size
-df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
 #matplotlib to build the piechart
 fig, ax = plt.subplots()
@@ -71,10 +65,15 @@ print(df3)
 sseq_count_series = df3['sseqid'].value_counts()
 print(sseq_count_series)
 
+#loop through series to determine which elements to remove and add into "other" column
+to_remove = []
+other_count = 0
+
+print(num_seqs)
 
 #taking 1% of number of sequences
 for index,values in sseq_count_series.iteritems():
-        if(values < (0.01)*(num_seqs)):
+        if(values < (0.001)*(num_seqs)):
                 to_remove.append(index)
                 other_count += values
 
@@ -90,12 +89,10 @@ for index,values in sseq_count_series2.iteritems():
         term = str(index)
         esearch_string = esearch(term=term, db='nucleotide')
         result = get_esummary(esearch_string=esearch_string, db='nucleotide')
-        sseq_count_series = df['sseqid'].value_counts()
         result = xmltodict.parse(result)
         sseq_name = result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
         sseq_name_list.append(sseq_name)
         #sseq_count_series2.rename(index={index:sseq_name})
-
 #replace the sseqids with ncbi query names
 replacements = {sseqid:sseq_name_list for sseqid, sseq_name_list in zip(sseqid, sseq_name_list)}
 sseq_count_series3 = sseq_count_series2.rename(replacements)
@@ -117,9 +114,12 @@ count = sseq_count_df['count']
 sseq = sseq_count_df['sseqid']
 
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
-wedgeprops={"linewidth": 1, "edgecolor": "white"})
+        wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
 
 plt.title('unmapped sequences summary LARP6')
 plt.show(block=True)
-plt.savefig(filename[-1]+".png",format='png',bbox_inches='tight')
+plt.savefig("sseqid4.png",format='png',bbox_inches='tight')
+
+
+
