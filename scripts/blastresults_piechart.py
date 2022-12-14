@@ -12,6 +12,7 @@ import sys
 import os
 
 larp6_file = sys.argv[1]
+pieName = sys.argv[2]
 
 #ncbi query functions
 def esearch(term, db='gds'):
@@ -116,10 +117,6 @@ sseq = sseq_count_df['sseqid']
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-
 plt.title('unmapped sequences summary LARP6')
 plt.show(block=True)
-plt.savefig("sseqid4.png",format='png',bbox_inches='tight')
-
-
-
+plt.savefig(pieName,format='png',bbox_inches='tight')
