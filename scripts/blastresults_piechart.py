@@ -72,6 +72,11 @@ print(df3)
 sseq_count_series = df3['sseqid'].value_counts()
 print(sseq_count_series)
 
+#loop through series to determine which elements to remove and add into "other" column
+to_remove = []
+other_count = 0
+
+print(num_seqs)
 
 #taking 1% of number of sequences
 for index,values in sseq_count_series.iteritems():
