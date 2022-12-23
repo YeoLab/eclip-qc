@@ -9,9 +9,10 @@ file1 = open(unmapped_count, "r+")
 sample = os.path.splitext(unmapped_count)[0]
 sample2 = os.path.split(sample)
 bam_file = sample2[1] + ".genome-mapped.bam"
-unmappedCount = int(file1.read())
+unmappedCount = file1.read()
+unmappedCount = int(unmappedCount.replace("\n", ""))
 sourcePath = file1.read()
-
+sourcePath = sourcePath.replace("\n", "")
 
 one_hundredk = 100000
 
