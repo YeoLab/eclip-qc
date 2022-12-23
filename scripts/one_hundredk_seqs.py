@@ -22,7 +22,7 @@ else:
         one_hundredk_unmapped = one_hundredk/unmappedCount
 
 #output is samtools command
-cmd = "samtools view -f 4 -s " + str(one_hundredk_unmapped) + " " + sourcePath + bam_file + ">" + out_file
+cmd = "samtools view -f 4 -s " + str(one_hundredk_unmapped) + " " + sourcePath + "/" +  bam_file + ">" + out_file
 
 print(cmd)
 os.system(cmd)
