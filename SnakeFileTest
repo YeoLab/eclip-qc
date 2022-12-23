@@ -14,7 +14,10 @@ rule unmapped_count:
     conda:
         "envs/samtools.yaml"
     shell:
-        "samtools view -c -f 4 {input} > {output}"
+        """
+        echo {SOURCE} >> {output}
+        samtools view -c -f 4 {input} > {output}
+        """
         
 rule unmapped_bam:
     input:
