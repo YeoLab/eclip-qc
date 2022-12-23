@@ -48,13 +48,6 @@ df = pd.read_csv(larp6_file, header=None, sep='\t')
 num_seqs = df.size
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
-#matplotlib to build the piechart
-fig, ax = plt.subplots()
-
-df = pd.read_csv(larp6_file, header=None, sep='\t')
-num_seqs = df.size
-df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
-
 df2 = df[['qseqid','sseqid','evalue']].copy()
 
 #blast output default is by best hit/lowest e value score, therefore add the first sseqid result for each qseqid
