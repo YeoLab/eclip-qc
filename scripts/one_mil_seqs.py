@@ -3,7 +3,6 @@ import os
 
 #number of unmapped sequences in each file
 unmapped_count = sys.argv[1]
-#bam_file = sys.argv[2]
 out_file = sys.argv[2]
 
 file1 = open(unmapped_count, "r+")
@@ -13,16 +12,16 @@ bam_file = sample2[1] + ".genome-mapped.bam"
 unmappedCount = int(file1.read())
 
 
-one_mil = 1000000
+one_hundredk = 100000
 
-#get float value to get 1 mil reads, if file has less than a million reads, just use all of them
-if unmappedCount < one_mil:
-        one_mil_unmapped=1
+#get float value to get 100,000 reads, if file has less than 100,000 reads, just use all of them
+if unmappedCount < one_hundredk:
+        one_hundredk_unmapped=1
 else:
-        one_mil_unmapped = one_mil/unmappedCount
+        one_hundredk_unmapped = one_hundredk/unmappedCount
 
 #output is samtools command
-cmd = "samtools view -f 4 -s " + str(one_mil_unmapped) + " /oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/" + bam_file + ">" + out_file
+cmd = "samtools view -f 4 -s " + str(one_hundredk_unmapped) + " /oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/" + bam_file + ">" + out_file
 
 print(cmd)
 os.system(cmd)
