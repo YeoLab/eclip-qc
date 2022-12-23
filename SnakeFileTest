@@ -10,7 +10,7 @@ rule all:
         
 rule unmapped_count:
     input:
-        "{SOURCE}/{SAMPLES}.genome-mapped.bam"
+        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/{SAMPLES}.genome-mapped.bam"
     output:
         "unmapped_counts/{SAMPLES}.txt"
     conda:
