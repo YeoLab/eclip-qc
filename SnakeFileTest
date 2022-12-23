@@ -23,7 +23,7 @@ rule unmapped_bam:
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/one_mil_seqs.py {input} {output}"
+        "python3 script/one_hundredk_seqs.py {input} {output}"
  
 rule unmapped_fasta:
     input:
