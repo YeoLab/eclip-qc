@@ -11,6 +11,8 @@ rule unmapped_count:
         "{SOURCE}/{SAMPLES}.genome-mapped.bam"
     output:
         "unmapped_counts/{SAMPLES}.txt"
+    wildcard_constraints:
+        SOURCE="\d+"
     conda:
         "envs/samtools.yaml"
     shell:
