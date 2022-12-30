@@ -1,8 +1,6 @@
 SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq", "LARP6.CTRL_IN2.umi.r1.fq", "LARP6.CTRL_IP1.umi.r1.fq", "LARP6.CTRL_IP2.umi.r1.fq", "LARP6.TGFb_IN1.umi.r1.fq", "LARP6.TGFb_IN2.umi.r1.fq", "LARP6.TGFb_IP1.umi.r1.fq", "LARP6.TGFb_IP2.umi.r1.fq"]
-SOURCE = "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results"
-DB = "/projects/ps-yeolab3/bay001/annotations/nr/nt"
-wildcard_constraints:
-    SOURCE="\d+"
+
+configfile: "config.yaml"
 
 rule all:
     input:
@@ -10,7 +8,7 @@ rule all:
         
 rule unmapped_count:
     input:
-        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/{SAMPLES}.genome-mapped.bam"
+        "config["SOURCE"]/{SAMPLES}.genome-mapped.bam"
     output:
         "unmapped_counts/{SAMPLES}.txt"
     conda:
@@ -18,7 +16,7 @@ rule unmapped_count:
     shell:
         """
         samtools view -c -f 4 {input} > {output}
-        echo {SOURCE} >> {output}
+        echo config["SOURCE"] >> {output}
         """
         
 rule unmapped_bam:
@@ -57,7 +55,7 @@ rule unmapped_blast:
     conda:
         "envs/blast.yaml"
     shell:
-        "blastn -db {DB} -query {input} -out {output} -outfmt 6 -max_target_seqs 5 -max_hsps 1 -num_threads {params.num_threads}"
+        "blastn -db config["DB"] -query {input} -out {output} -outfmt 6 -max_target_seqs 5 -max_hsps 1 -num_threads {params.num_threads}"
         
 rule unmapped_pie:
     input:
