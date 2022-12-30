@@ -1,3 +1,9 @@
-SOURCE: "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results"
-
 DB: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
+
+outfmt: 6
+
+max_target_seqs: 5
+
+max_hsps: 1
+
+num_threads: 8
