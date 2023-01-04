@@ -1,5 +1,5 @@
-SAMPLES = ["LARP6.CTRL_IN1.umi.r1.fq", "LARP6.CTRL_IN2.umi.r1.fq", "LARP6.CTRL_IP1.umi.r1.fq", "LARP6.CTRL_IP2.umi.r1.fq", "LARP6.TGFb_IN1.umi.r1.fq", "LARP6.TGFb_IN2.umi.r1.fq", "LARP6.TGFb_IP1.umi.r1.fq", "LARP6.TGFb_IP2.umi.r1.fq"]
-SOURCE = "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results"
+SAMPLES = config["SAMPLES"]
+SOURCE = config["SOURCE"]
 
 configfile: "config.yaml"
 
@@ -22,13 +22,14 @@ rule unmapped_count:
         
 rule unmapped_bam:
     input:
-        "unmapped_counts/{SAMPLES}.txt"
+        input1=expand("unmapped_counts/{sample}.bam", sample=SAMPLES),
+        N_downsample_reads=config["N_downsample_reads"]
     output:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/one_hundredk_seqs.py {input} {output}"
+        "python3 script/one_hundredk_seqs.py {input.input1} {input.N_downsample_reads} {output}"
  
 rule unmapped_fasta:
     input:
@@ -41,7 +42,7 @@ rule unmapped_fasta:
         "samtools fasta {input} > {output}"
         
 rule unmapped_blast:
-    threads: config["num_threads"]
+    threads: 8
     params:
         error_file = "unmapped_count/blast.err",
         out_file = "unmapped_count/blast.out",
@@ -49,10 +50,10 @@ rule unmapped_blast:
         memory = "200",
         job_name = "blast",
         DB = config["DB"],
-        outfmt = config["outfmt"],
-        max_target_seqs = config["max_target_seqs"],
-        max_hsps = config["max_hsps"],
-        num_threads = config["num_threads"]
+        outfmt = 6,
+        max_target_seqs = 5,
+        max_hsps = 1,
+        num_threads = 8
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
     output:
