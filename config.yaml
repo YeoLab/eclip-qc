@@ -1,9 +1,7 @@
 DB: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
 
-outfmt: 6
+N_downsample_reads: 10000
 
-max_target_seqs: 5
+SAMPLES: "LARP6.CTRL_IN1.umi.r1.fq", "LARP6.CTRL_IN2.umi.r1.fq", "LARP6.CTRL_IP1.umi.r1.fq", "LARP6.CTRL_IP2.umi.r1.fq", "LARP6.TGFb_IN1.umi.r1.fq", "LARP6.TGFb_IN2.umi.r1.fq", "LARP6.TGFb_IP1.umi.r1.fq", "LARP6.TGFb_IP2.umi.r1.fq"
 
-max_hsps: 1
-
-num_threads: 8
+SOURCE: "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results"
