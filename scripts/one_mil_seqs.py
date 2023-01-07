@@ -23,6 +23,3 @@ else:
 
 #output is samtools command
 cmd = "samtools view -f 4 -s " + str(one_hundred_unmapped) + " /oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/" + bam_file + ">" + out_file
-
-print(cmd)
-os.system(cmd)
