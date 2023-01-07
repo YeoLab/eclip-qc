@@ -13,16 +13,16 @@ bam_file = sample2[1] + ".genome-mapped.bam"
 unmappedCount = int(file1.read())
 
 
-one_hundred = 100
+hundred_thousand = 100000
 
 #get float value to get 1 mil reads, if file has less than a million reads, just use all of them
-if unmappedCount < one_hundred:
-        one_hundred_unmapped=1
+if unmappedCount < hundred_thousand:
+        hundred_thousand_unmapped=1
 else:
-        one_hundred_unmapped = one_hundred/unmappedCount
+        hundred_thousand_unmapped = hundred_thousand/unmappedCount
 
 #output is samtools command
-cmd = "samtools view -f 4 -s " + str(one_hundred_unmapped) + " /oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/" + bam_file + ">" + out_file
+cmd = "samtools view -f 4 -s " + str(hundred_thousand_unmapped) + " /oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/" + bam_file + ">" + out_file
 
 print(cmd)
 os.system(cmd)
