@@ -22,14 +22,14 @@ rule unmapped_count:
         
 rule unmapped_bam:
     input:
-        bam=expand("unmapped_counts/{sample}.bam", sample=SAMPLES),
+        txt=expand("unmapped_counts/{sample}.txt", sample=SAMPLES),
         N_downsample_reads=config["N_downsample_reads"]
     output:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/downsampled_seqs.py {input.bam} {input.N_downsample_reads} {output}"
+        "python3 script/downsampled_seqs.py {input.txt} {input.N_downsample_reads} {output}"
  
 rule unmapped_fasta:
     input:
