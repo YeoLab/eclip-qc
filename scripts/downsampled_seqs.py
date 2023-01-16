@@ -3,7 +3,7 @@ import os
 
 #number of unmapped sequences in each file
 unmapped_count = sys.argv[1]
-N_downsample_reads = sys.argv[2]
+N_downsample_reads = int(sys.argv[2])
 out_file = sys.argv[3]
 
 file1 = open(unmapped_count, "r+")
