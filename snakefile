@@ -1,7 +1,7 @@
+configfile: "config.yaml"
+
 SAMPLES = config["SAMPLES"]
 SOURCE = config["SOURCE"]
-
-configfile: "config.yaml"
 
 rule all:
     input:
@@ -24,14 +24,14 @@ rule unmapped_bam:
     params:
         N_downsample_reads=config["N_downsample_reads"]
     input:
-        txt=expand("unmapped_counts/{sample}.txt", sample=SAMPLES),
+        "unmapped_counts/{SAMPLES}.txt"
     output:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/downsampled_seqs.py {input.txt} {params.N_downsample_reads} {output}"
- 
+        "python3 script/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
+
 rule unmapped_fasta:
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
