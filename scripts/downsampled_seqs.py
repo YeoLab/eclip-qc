@@ -17,8 +17,10 @@ sourcePath = ""
 for line in Lines:
     count += 1
     if count == 1:
+        #first line in input txt file is the number of total sequences in bam file
         unmappedCount = int(line.replace("\n", ""))
     else:
+        #second line in input txt file is the echoed source path of specific bam file
         sourcePath = line.replace("\n", "")
 
 #get float value to get N downsample reads, if file has less than N downsample reads, just use all of them
