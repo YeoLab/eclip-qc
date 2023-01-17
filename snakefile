@@ -1,7 +1,7 @@
+configfile: "config.yaml"
+
 SAMPLES = config["SAMPLES"]
 SOURCE = config["SOURCE"]
-
-configfile: "config.yaml"
 
 rule all:
     input:
@@ -21,16 +21,17 @@ rule unmapped_count:
         """
         
 rule unmapped_bam:
-    input:
-        bam=expand("unmapped_counts/{sample}.bam", sample=SAMPLES),
+    params:
         N_downsample_reads=config["N_downsample_reads"]
+    input:
+        "unmapped_counts/{SAMPLES}.txt"
     output:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/downsampled_seqs.py {input.bam} {input.N_downsample_reads} {output}"
- 
+        "python3 scripts/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
+
 rule unmapped_fasta:
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
@@ -71,4 +72,4 @@ rule unmapped_pie:
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/blastresults_piechart.py {input} {output}"
+        "python3 scripts/blastresults_piechart.py {input} {output}"
