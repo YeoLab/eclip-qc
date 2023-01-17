@@ -30,7 +30,7 @@ rule unmapped_bam:
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
+        "python3 scripts/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
 
 rule unmapped_fasta:
     input:
@@ -72,4 +72,4 @@ rule unmapped_pie:
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 script/blastresults_piechart.py {input} {output}"
+        "python3 scripts/blastresults_piechart.py {input} {output}"
