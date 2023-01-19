@@ -8,3 +8,4 @@ dependencies:
  - samtools=1.6
  - pysam
  - pandas
+ - xmltodict
