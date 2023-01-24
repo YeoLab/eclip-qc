@@ -1,10 +1,18 @@
 import sys
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='DownSample samtools')
+parser.add_argument("-N_downsample", "--N_downsample_reads", help="Number of reads to downsample", type=int)
+parser.add_argument("-input", "--input_file", help="input Number of reads file", type=str)
+parser.add_argument("-output", "--output_file", help="output file", type=str)
+
+args = parser.parse_args()
 
 #number of unmapped sequences in each file
-unmapped_count = sys.argv[1]
-N_downsample_reads = sys.argv[2]
-out_file = sys.argv[3]
+unmapped_count = args.input_file
+N_downsample_reads = args.N_downsample_reads
+out_file = args.output_file
 
 file1 = open(unmapped_count, "r+")
 sample = os.path.splitext(unmapped_count)[0]
@@ -17,8 +25,10 @@ sourcePath = ""
 for line in Lines:
     count += 1
     if count == 1:
+        #first line in input txt file is the number of total sequences in bam file
         unmappedCount = int(line.replace("\n", ""))
     else:
+        #second line in input txt file is the echoed source path of specific bam file
         sourcePath = line.replace("\n", "")
 
 #get float value to get N downsample reads, if file has less than N downsample reads, just use all of them
