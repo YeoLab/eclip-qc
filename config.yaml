@@ -1,4 +1,6 @@
-DB: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
+DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
+
+DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr"
 
 N_downsample_reads: 10000
 
