@@ -91,7 +91,7 @@ rule unmapped_pie_blastn:
     input:
         "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv"
     output:
-        "pieChart/{SAMPLES}.png"
+        "pieChart/{SAMPLES}_n.png"
     conda:
         "envs/python3.yaml"
     shell:
@@ -101,7 +101,7 @@ rule unmapped_pie_blastx:
     input:
         "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
     output:
-        "pieChart/{SAMPLES}.png"
+        "pieChart/{SAMPLES}_x.png"
     conda:
         "envs/python3.yaml"
     shell:
