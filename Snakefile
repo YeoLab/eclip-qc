@@ -1,22 +1,30 @@
 configfile: "config.yaml"
+import os
 
-SAMPLES = config["SAMPLES"]
-SOURCE = config["SOURCE"]
-
+SAMPLESPATH = config["SAMPLESPATH"]
+SOURCE = os.path.dirname(SAMPLESPATH[0])
+d = {}
+SAMPLES = []
+for eachSample in SAMPLESPATH:
+    basename = os.path.basename(eachSample)
+    newBase = basename.replace('.genome-mapped.bam', '')
+    SAMPLES.append(newBase)
+    d[newBase] = eachSample
+    
 rule all:
     input:
-        expand("pieChart/{sample}.png", sample=SAMPLES)
+        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys()))
         
 rule unmapped_count:
     input:
-        "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/{SAMPLES}.genome-mapped.bam"
+        bam=lambda wildcards: d[wildcards.sample]
     output:
-        "unmapped_counts/{SAMPLES}.txt"
+        readnum=os.path.join("unmapped_counts", "{sample}" + ".txt")
     conda:
         "envs/samtools.yaml"
     shell:
         """
-        samtools view -c -f 4 {input} > {output}
+        samtools view -cf 4 {input.bam} > {output.readnum}
         echo {SOURCE} >> {output}
         """
         
