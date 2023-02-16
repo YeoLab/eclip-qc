@@ -71,9 +71,8 @@ rule unmapped_blastx:
     conda:
         "envs/blast.yaml"
     shell:
-        "blastx -db {params.DB} -query {input} -out {output} -outfmt {params.num_threads} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
-
-       
+        "diamond blastx -d {params.DB} -q {input} -o {output} -k 5"
+        
 
 rule unmapped_pie_blastx:
     input:
