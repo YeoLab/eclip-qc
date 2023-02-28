@@ -3,4 +3,4 @@ channels:
  - anaconda
  - conda-forge
 dependencies:
- - blast 2.1.4
+ - blast=2.1.4
