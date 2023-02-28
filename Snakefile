@@ -71,10 +71,7 @@ rule unmapped_blastx:
     conda:
 	"envs/diamond.yaml"
     shell:
-	"""
-        diamond makedb --in /projects/ps-yeolab3/bay001/annotations/nr/nr -d nr
-        diamond blastx -d nr -q {input} -o {output} -k 5
-        """
+        "diamond blastx -d /projects/ps-yeolab3/bay001/annotations/nr/nr -q {input} -o {output} -k 5"
 
 rule unmapped_pie_blastx:
     input:
