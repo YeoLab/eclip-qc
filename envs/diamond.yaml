@@ -3,4 +3,4 @@ channels:
  - anaconda
  - conda-forge
 dependencies:
- - diamond=2.1.4
+ - diamond=2.0.4
