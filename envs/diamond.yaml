@@ -1,1 +1,6 @@
-
+channels:
+ - bioconda
+ - anaconda
+ - conda-forge
+dependencies:
+ - blast 2.1.4
