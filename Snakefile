@@ -81,4 +81,4 @@ rule unmapped_pie_blastx:
     conda:
 	"envs/python3.yaml"
     shell:
-	"python3 script/blastresults_piechart.py {input} {output}"
+	"python3 script/blastxresults_piechart.py {input} {output}"
