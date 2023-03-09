@@ -71,7 +71,7 @@ rule unmapped_blastx:
     conda:
         "envs/diamond.yaml"
     shell:
-        "diamond blastx -d /projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd -q {input} -o {output} -k 5 --threads {threads}"
+        "diamond blastx -d /projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd -q {input} -o {output} -k {params.max_target_seqs} --threads {threads} -max_hsps {params.max_hsps}"
 
 rule unmapped_pie_blastx:
     input:
