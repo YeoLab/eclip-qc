@@ -9,12 +9,12 @@ from xml.dom import minidom
 
 #handles command line input parameter
 import sys
-
+import os
 
 blast_tsv_file = sys.argv[1]
 piePath = sys.argv[2]
 piePathSample = os.path.splitext(piePath)[0]
-piePathSample2 = os.path.split(piePathsample)
+piePathSample2 = os.path.split(piePathSample)
 pieName = piePathSample2[1]
 
 #ncbi query functions
@@ -120,6 +120,6 @@ sseq = sseq_count_df['sseqid']
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-plt.title('Unmapped Sequences Summary' + pieName)
+plt.title('Unmapped Sequences Summary ' + pieName)
 plt.show(block=True)
 plt.savefig(piePath,format='png',bbox_inches='tight')
