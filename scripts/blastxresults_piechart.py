@@ -14,7 +14,7 @@ import os
 blast_tsv_file = sys.argv[1]
 piePath = sys.argv[2]
 piePathSample = os.path.splitext(piePath)[0]
-piePathSample2 = os.path.split(piePathsample)
+piePathSample2 = os.path.split(piePathSample)
 pieName = piePathSample2[1]
 
 #matplotlib to build the piechart
