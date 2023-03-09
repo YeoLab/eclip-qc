@@ -120,6 +120,6 @@ sseq = sseq_count_df['sseqid']
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-plt.title('Unmapped Sequences Summary ' + pieName)
+plt.title('Blastn Unmapped Sequences Summary ' + pieName)
 plt.show(block=True)
 plt.savefig(piePath,format='png',bbox_inches='tight')
