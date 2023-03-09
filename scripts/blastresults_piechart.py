@@ -11,8 +11,11 @@ from xml.dom import minidom
 import sys
 
 
-larp6_file = sys.argv[1]
-pieName = sys.argv[2]
+blast_tsv_file = sys.argv[1]
+piePath = sys.argv[2]
+piePathSample = os.path.splitext(piePath)[0]
+piePathSample2 = os.path.split(piePathsample)
+pieName = piePathSample2[1]
 
 #ncbi query functions
 def esearch(term, db='gds'):
@@ -45,7 +48,7 @@ def get_esummary(esearch_string, db='gds'):
 #matplotlib to build the piechart
 fig, ax = plt.subplots()
 
-df = pd.read_csv(larp6_file, header=None, sep='\t')
+df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 num_seqs = df.size
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
@@ -117,6 +120,6 @@ sseq = sseq_count_df['sseqid']
 ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-plt.title('unmapped sequences summary' + pieName)
+plt.title('Unmapped Sequences Summary' + pieName)
 plt.show(block=True)
-plt.savefig(pieName,format='png',bbox_inches='tight')
+plt.savefig(piePath,format='png',bbox_inches='tight')
