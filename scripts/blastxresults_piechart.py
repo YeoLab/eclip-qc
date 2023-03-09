@@ -9,7 +9,7 @@ from xml.dom import minidom
 
 #handles command line input parameter
 import sys
-
+import os
 
 blast_tsv_file = sys.argv[1]
 piePath = sys.argv[2]
