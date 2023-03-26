@@ -6,6 +6,6 @@ dependencies:
  - python=3.9
  - matplotlib
  - samtools=1.6
+ - xmltodict
  - pysam
  - pandas
- - xmltodict
