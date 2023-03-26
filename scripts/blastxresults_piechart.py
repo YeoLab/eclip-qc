@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.patches import ConnectionPatch
 import urllib
 import xmltodict
 from xml.dom import minidom
@@ -46,7 +47,8 @@ def get_esummary(esearch_string, db='gds'):
         return ""
 
 #matplotlib to build the piechart
-fig, ax = plt.subplots()
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 5))
+fig.subplots_adjust(wspace=0)
 
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 num_seqs = df.size
@@ -71,6 +73,7 @@ print(sseq_count_series)
 
 #loop through series to determine which elements to remove and add into "other" column
 to_remove = []
+otherDict = {}
 other_count = 0
 
 print(num_seqs)
@@ -79,7 +82,39 @@ print(num_seqs)
 for index,values in sseq_count_series.iteritems():
         if(values < (0.001)*(num_seqs)):
                 to_remove.append(index)
+                otherDict[values] = index
                 other_count += values
+
+otherAnswer = []
+increment = 0
+for key,value in sorted(otherDict.items(),reverse=True):
+        if increment <= 2:
+                otherAnswer.append((key,value))
+                increment+=1
+        else:
+             	break
+
+#bar chart parameters
+gene_ratios = []
+gene_labels = []
+gene_labels1 = []
+bottom = 1
+width = .2
+
+for idx in range(len(otherAnswer)):
+        #otherAnswer[idx][0] = otherAnswer[idx][0]/other_count
+        gene_ratios.append(otherAnswer[idx][0]/other_count)
+        gene_labels1.append(otherAnswer[idx][1])
+
+#replace index sseqids with ncbi name
+for idx in range(len(gene_labels1)):
+        term = str(gene_labels1[idx])
+        print(term)
+        esearch_string = esearch(term=term, db='protein')
+        result = get_esummary(esearch_string=esearch_string, db='protein')
+        result = xmltodict.parse(result)
+        sseq_name = result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
+        gene_labels.append(sseq_name)
 
 
 #remove these elements from series
@@ -117,9 +152,44 @@ print(sseq_count_df)
 count = sseq_count_df['count']
 sseq = sseq_count_df['sseqid']
 
-ax.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
+wedges, *_ = ax1.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-plt.title('Blastn Unmapped Sequences Summary ' + pieName)
+# Adding from the top matches the legend.
+for j, (height, label) in enumerate(reversed([*zip(gene_ratios, gene_labels)])):
+    bottom -= height
+    bc = ax2.bar(0, height, width, bottom=bottom, color='C0', label=label,
+                 alpha=0.1 + 0.25 * j)
+    ax2.bar_label(bc, labels=[f"{height:.0%}"], label_type='center')
+
+ax2.set_title('Other unmapped reads')
+ax2.legend()
+ax2.axis('off')
+ax2.set_xlim(- 2.5 * width, 2.5 * width)
+
+# use ConnectionPatch to draw lines between the two plots
+theta1, theta2 = wedges[0].theta1, wedges[0].theta2
+center, r = wedges[0].center, wedges[0].r
+bar_height = sum(gene_ratios)
+
+# draw top connecting line
+x = r * np.cos(np.pi / 180 * theta2) + center[0]
+y = r * np.sin(np.pi / 180 * theta2) + center[1]
+con = ConnectionPatch(xyA=(-width / 2, bar_height), coordsA=ax2.transData,
+                      xyB=(x, y), coordsB=ax1.transData)
+con.set_color([0, 0, 0])
+con.set_linewidth(4)
+ax2.add_artist(con)
+
+# draw bottom connecting line
+x = r * np.cos(np.pi / 180 * theta1) + center[0]
+y = r * np.sin(np.pi / 180 * theta1) + center[1]
+con = ConnectionPatch(xyA=(-width / 2, 0), coordsA=ax2.transData,
+                      xyB=(x, y), coordsB=ax1.transData)
+con.set_color([0, 0, 0])
+ax2.add_artist(con)
+con.set_linewidth(4)
+
+plt.title('Blastx Unmapped Sequences Summary ' + pieName)
 plt.show(block=True)
 plt.savefig(piePath,format='png',bbox_inches='tight')
