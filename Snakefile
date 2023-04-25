@@ -70,7 +70,7 @@ rule unmapped_blastn:
     conda:
         "envs/blast.yaml"
     shell:
-        "blastn -db {params.DB} -query {input} -out {output} -outfmt {params.num_threads} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
+        "blastn -db {params.DB_N} -query {input} -out {output} -outfmt {params.num_threads} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
 
 rule unmapped_blastx:
     threads: 8
@@ -80,7 +80,7 @@ rule unmapped_blastx:
         run_time = "24:00:00",
         memory = "200",
         job_name = "blast",
-        DB = config["DB"],
+        DB = config["DB_X"],
         outfmt = 6,
         max_target_seqs = 5,
         max_hsps = 1,
@@ -92,9 +92,9 @@ rule unmapped_blastx:
     conda:
         "envs/diamond.yaml"
     shell:
-        "diamond blastx -d /projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd -q {input} -o {output} -k {params.max_target_seqs} --threads {threads} -max_hsps {params.max_hsps}"
+        "diamond blastx -d {params.DB_X} -q {input} -o {output} -k {params.max_target_seqs} --threads {threads} -max_hsps {params.max_hsps}"
 
-rule unmapped_pie_blastn:
+rule unmapped_pie:
     input:
         "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv"
     output:
@@ -102,14 +102,4 @@ rule unmapped_pie_blastn:
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 scripts/blastnresults_piechart.py {input} {output}"
-        
-rule unmapped_pie_blastx:
-    input:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
-    output:
-        "pieChart/{SAMPLES}.png"
-    conda:
-        "envs/python3.yaml"
-    shell:
-        "python3 script/blastxresults_piechart.py {input} {output}"
+        "python3 scripts/blastresults_piechart.py {input} {output}"
