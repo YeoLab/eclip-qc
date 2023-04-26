@@ -5,4 +5,4 @@ DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd"
 N_downsample_reads: 10000
 
 SAMPLESPATH:
-  - "/oasis/tscc/scratch/eczhang/larp6/LARP6.CTRL_IN1.umi.r1.fq_downsampled25.genome-mapped.bam"
+  - "/oasis/tscc/scratch/s5xu/share/LARP6.CTRL_IN1.umi.r1.fqdown.genome-mapped.bam"
