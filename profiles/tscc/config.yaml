@@ -1,0 +1,14 @@
+cluster: "qsub -N {rule}.{wildcards} -l nodes=1:ppn={params.num_threads},walltime={params.run_time} -A yeo-group -q home -V -t 0 -v PATH=/projects/ps-yeolab4/software/yeolabconda3/bin/:$PATH"
+verbose: true
+notemp: false
+latency: 300
+printshellcmds: true
+directory: .
+snakefile: /projects/ps-yeolab4/software/eclipdebugger/0.0.1/bin/eclip-qc/Snakefile
+#use-singularity: true
+#singularity-args: '--bind /oasis --bind /projects --bind /home'
+jobs: 8
+skip-script-cleanup: true
+#singularity-prefix: /projects/ps-yeolab4/software/stamp/0.99.0/bin/.singularity
+nolock: true
+use-conda: true

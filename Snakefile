@@ -1,8 +1,12 @@
 configfile: "config.yaml"
 import os
-
+OUTDIR = config["output_folder"]
 SAMPLESPATH = config["SAMPLESPATH"]
 SOURCE = os.path.dirname(SAMPLESPATH[0])
+SCRIPTS = os.path.dirname(config["SCRIPTS"])
+
+import sys
+
 d = {}
 SAMPLES = []
 for eachSample in SAMPLESPATH:
@@ -13,42 +17,57 @@ for eachSample in SAMPLESPATH:
     
 rule all:
     input:
-        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys()))
+        expand(os.path.join(OUTDIR, "pieChart", "{sample}" + ".png"), sample=list(d.keys()))
         
 rule unmapped_count:
     input:
         bam=lambda wildcards: d[wildcards.sample]
     output:
-        readnum=os.path.join("unmapped_counts", "{sample}" + ".txt")
+        readnum=os.path.join(OUTDIR, "unmapped_counts", "{sample}" + ".txt")
     conda:
         "envs/samtools.yaml"
+    params:
+        num_threads = 1,
+        run_time = "4:00:00"
     shell:
         """
+        module load samtools;
         samtools view -cf 4 {input.bam} > {output.readnum}
-        echo {SOURCE} >> {output}
+        echo {SOURCE} >> {output.readnum}
         """
         
 rule unmapped_bam:
     params:
-        N_downsample_reads=config["N_downsample_reads"]
+        N_downsample_reads=config["N_downsample_reads"],
+        num_threads = 1,
+        run_time = "4:00:00"
     input:
-        "unmapped_counts/{SAMPLES}.txt"
+        txt=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}.txt")
     output:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
+        bam=os.path.join(OUTDIR, "unmapped_counts/", "{SAMPLES}_unmapped_downsampled.bam")
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 scripts/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
+        """
+        module load python3essential;
+        python3 {SCRIPTS}/downsampled_seqs.py -input {input.txt} -N_downsample {params.N_downsample_reads} -output {output.bam}
+        """
 
 rule unmapped_fasta:
     input:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
+        bam=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmapped_downsampled.bam")
     output:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
+        fasta=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmapped_downsampled.fasta")
     conda:
         "envs/samtools.yaml"
+    params:
+        num_threads = 1,
+        run_time = "4:00:00"
     shell:
-        "samtools fasta {input} > {output}"
+        """
+        module load samtools;
+        samtools fasta {input.bam} > {output.fasta}
+        """
 
 rule unmapped_blastn:
     threads: 8
@@ -64,13 +83,16 @@ rule unmapped_blastn:
         max_hsps = 1,
         num_threads = 8
     input:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
+        fasta=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmapped_downsampled.fasta")
     output:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv"
+        tsv=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmappedblast_downsampled_blastn.tsv")
     conda:
         "envs/blast.yaml"
     shell:
-        "blastn -db {params.DB} -query {input} -out {output} -outfmt {params.outfmt} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
+        """
+        module load blast;
+        blastn -db {params.DB} -query {input.fasta} -out {output.tsv} -outfmt {params.outfmt} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}
+        """
 
 rule unmapped_blastx:
     threads: 8
@@ -86,21 +108,30 @@ rule unmapped_blastx:
         max_hsps = 1,
         num_threads = 8
     input:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
+        fasta=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmapped_downsampled.fasta")
     output:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
+        tsv=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmappedblast_downsampled_blastx.tsv")
     conda:
         "envs/diamond.yaml"
     shell:
-        "diamond blastx -d {params.DB} -q {input} -o {output} -k {params.max_target_seqs} --threads {threads} --max-hsps {params.max_hsps}"
+        """
+        module load diamond;
+        diamond blastx -d {params.DB} -q {input.fasta} -o {output.tsv} -k {params.max_target_seqs} --threads {threads} --max-hsps {params.max_hsps}
+        """
 
 rule unmapped_pie:
     input:
-       input1="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv",
-       input2="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
+       input1=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmappedblast_downsampled_blastn.tsv"),
+       input2=os.path.join(OUTDIR, "unmapped_counts", "{SAMPLES}_unmappedblast_downsampled_blastx.tsv")
     output:
-        "pieChart/{SAMPLES}.png"
+        pie=os.path.join(OUTDIR, "pieChart", "{SAMPLES}.png")
+    params:
+        num_threads = 1,
+        run_time = "1:00:00"
     conda:
         "envs/python3.yaml"
     shell:
-        "python3 scripts/blastresults_piechart.py {input.input1} {input.input2} {output}"
+        """
+        module load python3essential;
+        python3 {SCRIPTS}/blastresults_piechart.py {input.input1} {input.input2} {output.pie}
+        """
