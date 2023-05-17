@@ -13,7 +13,9 @@ for eachSample in SAMPLESPATH:
     
 rule all:
     input:
-        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys()))
+        expand(os.path.join("unmapped_counts", "{sample}" + ".fasta"), sample=list(d.keys())),
+	expand(os.path.join("alignmentqc", "{sample}" + "_alignment_stats.txt"), sample=list(d.keys()))
+
         
 rule unmapped_count:
     input:
@@ -27,6 +29,16 @@ rule unmapped_count:
         samtools view -cf 4 {input.bam} > {output.readnum}
         echo {SOURCE} >> {output}
         """
+
+rule alignment_qc:
+    input:
+	bam_files=lambda wildcards: d[wildcards.sample]
+    output:
+	stats=os.path.join("alignmentqc", "{sample}_alignment_stats.txt")
+    conda:
+	"envs/samtools.yaml"
+    shell:
+	"samtools stats {input.bam_files} > {output.stats}"
         
 rule unmapped_bam:
     params:
@@ -39,7 +51,7 @@ rule unmapped_bam:
         "envs/python3.yaml"
     shell:
         "python3 scripts/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
-
+        
 rule unmapped_fasta:
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
@@ -49,67 +61,3 @@ rule unmapped_fasta:
         "envs/samtools.yaml"
     shell:
         "samtools fasta {input} > {output}"
-
-rule unmapped_blastn:
-    threads: 8
-    params:
-        error_file = "unmapped_count/blast.err",
-        out_file = "unmapped_count/blast.out",
-        run_time = "24:00:00",
-        memory = "200",
-        job_name = "blast",
-        DB = config["DB_N"],
-        outfmt = 6,
-        max_target_seqs = 5,
-        max_hsps = 1,
-        num_threads = 8
-    input:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
-    output:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv"
-    conda:
-        "envs/blast.yaml"
-    shell:
-        "blastn -db {params.DB} -query {input} -out {output} -outfmt {params.num_threads} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
-
-rule unmapped_blastx:
-    threads: 8
-    params:
-        error_file = "unmapped_count/blast.err",
-        out_file = "unmapped_count/blast.out",
-        run_time = "24:00:00",
-        memory = "200",
-        job_name = "blast",
-        DB = config["DB"],
-        outfmt = 6,
-        max_target_seqs = 5,
-        max_hsps = 1,
-        num_threads = 8
-    input:
-        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
-    output:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
-    conda:
-        "envs/diamond.yaml"
-    shell:
-        "diamond blastx -d /projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd -q {input} -o {output} -k {params.max_target_seqs} --threads {threads} -max_hsps {params.max_hsps}"
-
-rule unmapped_pie_blastn:
-    input:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv"
-    output:
-        "pieChart/{SAMPLES}_n.png"
-    conda:
-        "envs/python3.yaml"
-    shell:
-        "python3 scripts/blastnresults_piechart.py {input} {output}"
-        
-rule unmapped_pie_blastx:
-    input:
-        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
-    output:
-        "pieChart/{SAMPLES}.png"
-    conda:
-        "envs/python3.yaml"
-    shell:
-        "python3 script/blastxresults_piechart.py {input} {output}"
