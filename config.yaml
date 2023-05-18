@@ -1,4 +1,4 @@
-DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nr"
+DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
 DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd"
 
 reads_type: "SE"
@@ -7,9 +7,3 @@ N_downsample_reads: 100000
 SAMPLESPATH:
   - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN1.umi.r1.fq.genome-mapped.bam"
   - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN2.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IP1.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IP2.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.TGFb_IN1.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.TGFb_IN2.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.TGFb_IP1.umi.r1.fq.genome-mapped.bam"
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.TGFb_IP2.umi.r1.fq.genome-mapped.bam"

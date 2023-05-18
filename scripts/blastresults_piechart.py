@@ -168,9 +168,9 @@ gene_labels = []
 gene_labels_raw = []  
 
 for idx in range(len(otherAnswer1)):
+        gene_count.append(otherAnswer1[idx][0]/1)
         gene_ratios.append(otherAnswer1[idx][0]/other_count1)
         gene_labels_raw.append(otherAnswer1[idx][1])
-	gene_count.append(otherAnswer1[idx][0])
 
 #replace index sseqids with ncbi name
 for idx in range(len(gene_labels_raw)):
@@ -191,7 +191,7 @@ gene_labels_raw2 = []
 for idx in range(len(otherAnswer2)):
         gene_ratios2.append(otherAnswer2[idx][0]/other_count2)
         gene_labels_raw2.append(otherAnswer2[idx][1])
-	gene_count.append(otherAnswer2[idx][0])
+        gene_count2.append(otherAnswer2[idx][0]/1)
 
 #replace index sseqids with ncbi name
 for idx in range(len(gene_labels_raw2)):
@@ -281,6 +281,8 @@ sseq2 = sseq_count_df2['sseqid']
 bottom = 1
 width = 0.2
 
+print(gene_count)
+print(gene_count2)
 wedges1, *_ = ax1.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
@@ -288,10 +290,13 @@ for j, (height, label) in enumerate(reversed([*zip(gene_ratios, gene_labels)])):
     bottom -= height
     bc = ax2.bar(0, height, width, bottom=bottom, color='C0', label=label,
                  alpha=0.1 + 0.25 * j)
-    ax2.bar_label(bc, labels=[f"{height:.0%}" ({count})" for count in gene_counts], label_type='center')
+    ax2.bar_label(bc, labels=[f"{height:.0%}"], label_type='center')
 
 # ax2.set_title('Other unmapped reads')
-ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05))
+legend_labels = []
+for label, count in zip(gene_labels, gene_count):
+    legend_labels.append(f"{label} ({count})")
+ax2.legend(bc, legend_labels, loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=4)
 ax2.axis('off')
 ax2.set_xlim(- 2.5 * 2, 2.5 * 2)
 
@@ -307,10 +312,13 @@ for j, (height, label) in enumerate(reversed([*zip(gene_ratios2, gene_labels2)])
     bottom -= height
     bc = ax4.bar(0, height, width, bottom=bottom, color='C0', label=label,
                  alpha=0.1 + 0.25 * j)
-    ax4.bar_label(bc, labels=[f"{height:.0%}" ({count})" for count in gene_counts2], label_type='center')
+    ax4.bar_label(bc, labels=[f"{height:.0%}"], label_type='center')
     
 # ax4.set_title('Other unmapped reads')
-ax4.legend(loc='lower center', bbox_to_anchor=(0.5, -0.05))
+legend_labels2 = []
+for label, count in zip(gene_labels2, gene_count2):
+    legend_labels2.append(f"{label} ({count})")
+ax4.legend(bc, legend_labels2, loc='lower center', bbox_to_anchor=(0.5, -0.05), ncol=4)
 ax4.axis('off')
 ax4.set_xlim(- 2.5 * 2, 2.5 * 2)
 

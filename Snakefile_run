@@ -44,12 +44,13 @@ rule alignment_qc:
     input:
         bam=lambda wildcards: d[wildcards.sample]
     output:
-        stats=os.path.join("alignmentqc", "{sample}_alignment_stats.txt")
+        "alignmentqc/{SAMPLES}_fastqc.html",
+        "alignmentqc/{SAMPLES}_fastqc.zip"
     conda:
         "envs/samtools.yaml"
     shell:
         """
-        samtools stats {input.bam} > {output.stats}
+        fastqc -o ~/eclip-qc/alignmentqc {input.bam} > {output}
         """
 
 rule unmapped_fasta:
