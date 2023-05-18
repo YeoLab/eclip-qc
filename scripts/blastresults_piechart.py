@@ -168,7 +168,7 @@ gene_labels = []
 gene_labels_raw = []  
 
 for idx in range(len(otherAnswer1)):
-        gene_count.append(otherAnswer1[idx][0]/1)
+        gene_count.append(otherAnswer1[idx][0])
         gene_ratios.append(otherAnswer1[idx][0]/other_count1)
         gene_labels_raw.append(otherAnswer1[idx][1])
 
@@ -191,7 +191,7 @@ gene_labels_raw2 = []
 for idx in range(len(otherAnswer2)):
         gene_ratios2.append(otherAnswer2[idx][0]/other_count2)
         gene_labels_raw2.append(otherAnswer2[idx][1])
-        gene_count2.append(otherAnswer2[idx][0]/1)
+        gene_count2.append(otherAnswer2[idx][0])
 
 #replace index sseqids with ncbi name
 for idx in range(len(gene_labels_raw2)):
@@ -283,59 +283,49 @@ width = 0.2
 
 print(gene_count)
 print(gene_count2)
-wedges1, *_ = ax1.pie(count, labels = sseq, colors=None,autopct='%1.1f%%',startangle=45,
+wedges1, *_ = ax1.pie(count, labels=[f'{sseq[i]}: {count[i]} ({count[i]/sum(count)*100:.1f}% )' for i in range(len(sseq))], colors=None,autopct='',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-for j, (height, label) in enumerate(reversed([*zip(gene_ratios, gene_labels)])):
+for j, (height, label, num) in enumerate(reversed([*zip(gene_ratios, gene_labels, gene_count)])):
     bottom -= height
     bc = ax2.bar(0, height, width, bottom=bottom, color='C0', label=label,
                  alpha=0.1 + 0.25 * j)
-    ax2.bar_label(bc, labels=[f"{height:.0%}"], label_type='center')
-
-# ax2.set_title('Other unmapped reads')
-legend_labels = []
-for label, count in zip(gene_labels, gene_count):
-    legend_labels.append(f"{label} ({count})")
-ax2.legend(bc, legend_labels, loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=4)
+    ax2.bar_label(bc, labels=[f"{height:.0%}({num})"], label_type='center')
 ax2.axis('off')
 ax2.set_xlim(- 2.5 * 2, 2.5 * 2)
+legend = ax2.legend(loc='upper center', bbox_to_anchor=(0.5, 0.02), ncol=1)
 
 
 
 bottom = 1
 width = 0.2
 
-wedges2, *_ = ax3.pie(count2, labels = sseq2, colors=None,autopct='%1.1f%%',startangle=45,
+wedges2, *_ = ax3.pie(count2, labels=[f'{sseq2[i]}: {count2[i]} ({count2[i]/sum(count2)*100:.1f}% )' for i in range(len(sseq2))], colors=None,autopct='',startangle=45,
         wedgeprops={"linewidth": 1, "edgecolor": "white"})
 
-for j, (height, label) in enumerate(reversed([*zip(gene_ratios2, gene_labels2)])):
+for j, (height, label, num) in enumerate(reversed([*zip(gene_ratios2, gene_labels2, gene_count2)])):
     bottom -= height
     bc = ax4.bar(0, height, width, bottom=bottom, color='C0', label=label,
                  alpha=0.1 + 0.25 * j)
-    ax4.bar_label(bc, labels=[f"{height:.0%}"], label_type='center')
-    
-# ax4.set_title('Other unmapped reads')
-legend_labels2 = []
-for label, count in zip(gene_labels2, gene_count2):
-    legend_labels2.append(f"{label} ({count})")
-ax4.legend(bc, legend_labels2, loc='lower center', bbox_to_anchor=(0.5, -0.05), ncol=4)
+    ax4.bar_label(bc, labels=[f"{height:.0%}({num})"], label_type='center')
 ax4.axis('off')
 ax4.set_xlim(- 2.5 * 2, 2.5 * 2)
+legend2 = ax4.legend(loc='upper center', bbox_to_anchor=(0.5, 0.02), ncol=1)
 
 
 
 
 ### Get the percentage of the the blast n/x mapped results
 # for ax5
-ax5_percentages = [100000 - num_seqs, num_seqs]
+ax5_percentages = [10000 - num_seqs, num_seqs]
 ax5_labels = ['Unmapped', 'Mapped']
-ax5.pie(ax5_percentages, labels=ax5_labels, autopct='%1.1f%%',
+ax5.pie(ax5_percentages, labels=[f'{ax5_labels[i]}: {ax5_percentages[i]} ({ax5_percentages[i]/sum(ax5_percentages)*100:.1f}% )' for i in range(len(ax5_labels))], autopct='',
        colors=['skyblue', 'gray'], labeldistance=1.1)
 
 # for ax6
-ax6_percentages = [100000 - num_seqs2, num_seqs2]
+ax6_percentages = [10000 - num_seqs2, num_seqs2]
 ax6_labels = ['Unmapped', 'Mapped']
-ax6.pie(ax6_percentages, labels=ax6_labels, autopct='%1.1f%%',
+ax6.pie(ax6_percentages, labels=[f'{ax6_labels[i]}: {ax6_percentages[i]} ({ax6_percentages[i]/sum(ax6_percentages)*100:.1f}% )' for i in range(len(ax6_labels))], autopct='',
        colors=['skyblue', 'gray'], labeldistance=1.1)
 
 # Adding Circle in Pie chart
@@ -344,8 +334,8 @@ ax5.add_patch(circle1)
 circle2 = plt.Circle((0, 0), radius=0.6, color='white')
 ax6.add_patch(circle2)
 
-text1 = str(num_seqs) + " out of 10000 sequences no mapping"
-text2 = str(num_seqs2) + " out of 10000 sequences no mapping"
+text1 = str(num_seqs) + " out of 10000 sequences mapped"
+text2 = str(num_seqs2) + " out of 10000 sequences mapped"
 
 # plt.title('Blastn and Blastx Unmapped Sequences Summary ' + pieName)
 ax5.text(0.95, 2.2, text1, transform=ax6.transAxes, fontsize=14,

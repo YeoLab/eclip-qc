@@ -5,5 +5,4 @@ reads_type: "SE"
 N_downsample_reads: 100000
 
 SAMPLESPATH:
-  - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN1.umi.r1.fq.genome-mapped.bam"
   - "/oasis/tscc/scratch/eczhang/larp6/larp6_GRCh38/results/LARP6.CTRL_IN2.umi.r1.fq.genome-mapped.bam"
