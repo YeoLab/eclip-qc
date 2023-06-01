@@ -65,7 +65,7 @@ df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
 
 df2 = df[['qseqid','sseqid','evalue']].copy()
-print(df2)
+#print(df2)
 # Read the blast x file
 #df4 = pd.read_csv(blast_tsv_file2, header=None, sep='\t')
 #df4.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
@@ -79,13 +79,19 @@ for index, row in df2.iterrows():
     checker = 0
     term = str(row['sseqid'])
     print(term)
-    esearch_string = esearch(term=term, db='nucleotide')
+    esearch_string = esearch(term=term, db='protein')
     time.sleep(0.1)
-    result = get_esummary(esearch_string=esearch_string, db='nucleotide')
+    result = get_esummary(esearch_string=esearch_string, db='protein')
+    #print(result)
     result = xmltodict.parse(result)
-    sseq_name = result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
+    print(result)
+    if 'ERROR' in result['eSummaryResult']:
+        sseq_name = 'error'
+    else: 
+        sseq_name = result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
+    
     for i in range(len(filterlist)):
-        if filterlist[i] in sseq_name:
+        if sseq_name != 'error' and filterlist[i] in sseq_name:
             checker += 1
             qseqid_checker1.append(row['qseqid']) 
     if checker == 0:
