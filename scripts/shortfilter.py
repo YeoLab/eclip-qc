@@ -21,17 +21,16 @@ blast_tsv_file = sys.argv[1]
 #pieName = piePathSample2[1]
 filterlist = ['bacter', 'bacterium', 'strain', 'Homo sapiens', 'Mus musculus', 'virus']
 
-#ncbi query functions
-def esearch(term, db='gds'):
+def esearch(term, db='gds', api_key='9e09d5d38c680a8358426f7fac6d154b4f08'):
     """
     Queries NCBI using the esearch utility. GEO ('gds') database is used as default for search term.
     """
-    url = f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db={db}&term={term}&retmax=5000&usehistory=y'
+    url = f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db={db}&term={term}&retmax=5000&usehistory=y&api_key={api_key}'
     response = urllib.request.urlopen(url)
     return response.read()
 
 
-def get_esummary(esearch_string, db='gds'):
+def get_esummary(esearch_string, db='gds', api_key='9e09d5d38c680a8358426f7fac6d154b4f08'):
     """
     Parses a http response in XML format to obtain the webenv and querykey tokens.
     Uses NCBI eutils to transform these tokens into web summaries of GEO (db='gds') datasets.
@@ -41,7 +40,7 @@ def get_esummary(esearch_string, db='gds'):
         webenv = xmldoc.getElementsByTagName('WebEnv')[0].firstChild.data
         querykey = xmldoc.getElementsByTagName('QueryKey')[0].firstChild.data
         host = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi'
-        params = f'?db={db}&version=2.0&query_key={querykey}&WebEnv={webenv}'
+        params = f'?db={db}&version=2.0&query_key={querykey}&WebEnv={webenv}&api_key={api_key}'
         url = host + params
         response = urllib.request.urlopen(url)
         return response.read()
@@ -49,6 +48,12 @@ def get_esummary(esearch_string, db='gds'):
         print(f"Unparsable publication string ({e}, search={esearch_string}")
         return ""
 
+
+def ncbi_parse(result):
+    try:
+        return result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
+    except TypeError:
+        return 'No_Species'
 
 # Read the blast n file
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
@@ -79,19 +84,11 @@ for each in dictionary1:
         term = str(each[0])
         #print(term)
         esearch_string = esearch(term=term, db='nucleotide')
-        time.sleep(0.1)
+        time.sleep(0.5)
         result = get_esummary(esearch_string=esearch_string, db='nucleotide')
         result = xmltodict.parse(result)
-        #print(result)
-        if 'ERROR' in result['eSummaryResult']:
-            print(result)
-            sseq_name = 'error'
-        elif 'ERROR' in result['eSummaryResult']['DocumentSummarySet']:
-            print(result)
-            sseq_name = 'error'
-        else:
-            sseq_name = result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
-        print(sseq_name)
+        sseq_name = ncbi_parse(result)
+        #print(sseq_name)
         for i in range(len(filterlist)):
             if filterlist[i] in sseq_name:
                 ncbilist1.append(sseq_name)
