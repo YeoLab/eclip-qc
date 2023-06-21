@@ -113,7 +113,7 @@ for index,row in qseqidDf.iterrows():
     term = str(row['qseqid'])
     #print(term)
     esearch_string = esearch(term=term, db='nucleotide')
-    if (esearch_string == 'No_species'):
+    if (esearch_string == 'No_Species'):
         continue
     time.sleep(0.5)
     result = get_esummary(esearch_string=esearch_string, db='nucleotide')
