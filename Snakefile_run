@@ -13,9 +13,23 @@ for eachSample in SAMPLESPATH:
     
 rule all:
     input:
-        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys())),
-	expand(os.path.join("alignmentqc","{sample}" + "_alignment_stats.txt"), sample=list(d.keys()))
+        expand(os.path.join("alignmentqc","{sample}" + ".genome-mapped_fastqc.html"), sample=list(d.keys())),
+        expand(os.path.join("alignmentqc","{sample}" + ".genome-mapped_fastqc.zip"), sample=list(d.keys())),
+        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys()))
         
+rule alignment_qc:
+    input:
+        bam=lambda wildcards: d[wildcards.sample]
+    output:
+        outputqc1=os.path.join("alignmentqc", "{sample}" + ".genome-mapped_fastqc.html"),
+        outputqc2=os.path.join("alignmentqc", "{sample}" + ".genome-mapped_fastqc.zip")
+    conda:
+        "envs/fastqc.yaml"
+    shell:
+        """
+        fastqc -o alignmentqc {input.bam}
+        """
+
 rule unmapped_count:
     input:
         bam=lambda wildcards: d[wildcards.sample]
@@ -40,19 +54,6 @@ rule unmapped_bam:
     shell:
         "python3 scripts/downsampled_seqs.py -input {input} -N_downsample {params.N_downsample_reads} -output {output}"
 
-rule alignment_qc:
-    input:
-        bam=lambda wildcards: d[wildcards.sample]
-    output:
-        "alignmentqc/{SAMPLES}_fastqc.html",
-        "alignmentqc/{SAMPLES}_fastqc.zip"
-    conda:
-        "envs/samtools.yaml"
-    shell:
-        """
-        fastqc -o ~/eclip-qc/alignmentqc {input.bam} > {output}
-        """
-
 rule unmapped_fasta:
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.bam"
@@ -73,7 +74,7 @@ rule unmapped_blastn:
         job_name = "blast",
         DB = config["DB_N"],
         outfmt = 6,
-        max_target_seqs = 100,
+        max_target_seqs = 50,
         max_hsps = 1,
         num_threads = 8
     input:
@@ -95,12 +96,12 @@ rule unmapped_blastx:
         job_name = "blast",
         DB = config["DB_X"],
         outfmt = 6,
-        max_target_seqs = 5,
+        max_target_seqs = 50,
         max_hsps = 1,
         num_threads = 8
     input:
         "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
-    output:
+    output:        
         "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
     conda:
         "envs/diamond.yaml"

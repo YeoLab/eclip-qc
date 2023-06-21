@@ -54,6 +54,8 @@ def ncbi_parse(result):
         return result['eSummaryResult']['DocumentSummarySet']['DocumentSummary']['Title']
     except TypeError:
         return 'No_Species'
+    except KeyError:
+        return 'No_Species'
 
 # Read the blast n file
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
@@ -76,24 +78,56 @@ for eachid,eachp in zip(df2['sseqid'], df2['pident']):
         dictionary1[eachid][1] += 1
 
 dictionary1 = sorted(dictionary1.items(), key=lambda x:x[1], reverse=True)
-ncbilist1 = []
 
-for each in dictionary1:
-    if float(each[1][0]) == float(100):
-        checker = 0
-        term = str(each[0])
-        #print(term)
-        esearch_string = esearch(term=term, db='nucleotide')
-        time.sleep(0.5)
-        result = get_esummary(esearch_string=esearch_string, db='nucleotide')
-        result = xmltodict.parse(result)
-        sseq_name = ncbi_parse(result)
-        #print(sseq_name)
-        for i in range(len(filterlist)):
-            if filterlist[i] in sseq_name:
-                ncbilist1.append(sseq_name)
+checkqseqid = []
+dict1 = {}
+for eachqid,eachsid,eachp in zip(df2['qseqid'],df2['sseqid'],df2['pident']):
+    if eachqid not in checkqseqid:
+        #first instance of qseqid encountered, add top hit
+        checkqseqid.append(eachqid)
+        if eachsid not in dict1:
+            dict1[eachsid] = 1
+        else:
+           dict1[eachsid] += 1
+        continue
+    #not the first hit for the qseqid
+    if eachp == 100:
+        if eachsid not in dict1:
+            dict1[eachsid] = 1
+        else:
+            dict1[eachsid] += 1
+    else:
+        #ignore if the score is less than 100 until next qseqid is reached
+        continue
 
-blastnSort1 = pd.DataFrame(ncbilist1, columns=['Name'])
-blastnSort2 = blastnSort1['Name'].value_counts()
-print(blastnSort2)
+qseqidDf = pd.DataFrame(list(dict1.items()), columns=['qseqid','frequency'])
+
+#filter by frequency if frequency is too small TODO
+
+toDrop = []
+#filter by keywords!
+for index,row in qseqidDf.iterrows():
+    term = str(row['qseqid'])
+    #print(term)
+    esearch_string = esearch(term=term, db='protein')
+    time.sleep(0.5)
+    result = get_esummary(esearch_string=esearch_string, db='protein')
+    result = xmltodict.parse(result)
+    #print(result)
+    sseq_name = ncbi_parse(result)
+    #print(sseq_name)
+    for i in range(len(filterlist)):
+        if filterlist[i] in sseq_name:
+            qseqidDf[index, 'qseqid'] = sseq_name
+    #if no keyword is found drop that row
+    toDrop.append(index)
+
+for i in range(len(toDrop)):
+    qseqidDf.drop(toDrop[i])
+
+print(qseqidDf)
+
+#blastnSort1 = pd.DataFrame(ncbilist1, columns=['Name'])
+#blastnSort2 = blastnSort1['Name'].value_counts()
+#print(blastnSort2)
 
