@@ -26,7 +26,10 @@ def esearch(term, db='gds', api_key='9e09d5d38c680a8358426f7fac6d154b4f08'):
     Queries NCBI using the esearch utility. GEO ('gds') database is used as default for search term.
     """
     url = f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db={db}&term={term}&retmax=5000&usehistory=y&api_key={api_key}'
-    response = urllib.request.urlopen(url)
+    try:
+        response = urllib.request.urlopen(url)
+    except urllib.error.HTTPError:
+        return 'No_Species'        
     return response.read()
 
 
@@ -109,16 +112,18 @@ toDrop = []
 for index,row in qseqidDf.iterrows():
     term = str(row['qseqid'])
     #print(term)
-    esearch_string = esearch(term=term, db='protein')
+    esearch_string = esearch(term=term, db='nucleotide')
+    if (esearch_string == 'No_species'):
+        continue
     time.sleep(0.5)
-    result = get_esummary(esearch_string=esearch_string, db='protein')
+    result = get_esummary(esearch_string=esearch_string, db='nucleotide')
     result = xmltodict.parse(result)
     #print(result)
     sseq_name = ncbi_parse(result)
     #print(sseq_name)
     for i in range(len(filterlist)):
         if filterlist[i] in sseq_name:
-            qseqidDf[index, 'qseqid'] = sseq_name
+            qseqidDf.loc[index, 'qseqid'] = sseq_name
     #if no keyword is found drop that row
     toDrop.append(index)
 
