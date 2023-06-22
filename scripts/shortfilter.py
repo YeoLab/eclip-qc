@@ -63,6 +63,7 @@ def ncbi_parse(result):
 # Read the blast n file
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
+num_seqs = df.size
 
 df2 = df[['qseqid','sseqid','pident']].copy()
 
@@ -121,16 +122,30 @@ for index,row in qseqidDf.iterrows():
     #print(result)
     sseq_name = ncbi_parse(result)
     #print(sseq_name)
+    for index,row in qseqidDf.iterrows():
+    found = False
     for i in range(len(filterlist)):
-        if filterlist[i] in sseq_name:
-            qseqidDf.loc[index, 'qseqid'] = sseq_name
-    #if no keyword is found drop that row
-    toDrop.append(index)
+        if filterlist[i] in row['qseqid']:
+            found = True
+    if found == False:
+        toDrop.append(index)
 
 for i in range(len(toDrop)):
-    qseqidDf.drop(toDrop[i])
+    qseqidDf = qseqidDf.drop(toDrop[i])
+#qseqidDf
 
-print(qseqidDf)
+to_remove = []
+other_count = 0
+for index,row in qseqidDf.iterrows():
+    if(row['frequency'] < (0.001)*(num_seqs)):
+        to_remove.append(index)
+        other_count += int(row['frequency'])
+
+ncbiDf = qseqidDf.drop(index=to_remove)
+ncbiDf = ncbiDf.rename(columns{'qseqid':'name'})
+
+ncbiDf.loc[len(ncbiDf)] = ['Other', other_count]
+
 
 #blastnSort1 = pd.DataFrame(ncbilist1, columns=['Name'])
 #blastnSort2 = blastnSort1['Name'].value_counts()
