@@ -2,7 +2,7 @@ DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
 DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd"
 
 
-N_downsample_reads: 10000
+N_downsample_reads: 1000000
 
 SAMPLESPATH:
   - "/oasis/tscc/scratch/s5xu/share/LARP6.CTRL_IN1.umi.r1.fqdown.genome-mapped.bam"
