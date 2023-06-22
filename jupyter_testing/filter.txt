@@ -1,0 +1,12 @@
+unnamed protein product [Homo sapiens]                                                   11
+hypothetical protein [uncultured bacterium]                                              10
+retron-type RNA-directed DNA polymerase [uncultured bacterium]                            8
+conserved hypothetical protein [uncultured beta proteobacterium CBNPD1 BAC clone 578]     6
+Uncharacterised protein [Enterobacter hormaechei]                                         6
+                                                                                         ..
+hypothetical protein B9W52_18810 [Acinetobacter baumannii]                                1
+hypothetical protein AYO25_04590 [Candidatus Liberibacter solanacearum]                   1
+RNA-dependent RNA polymerase, partial [Picobirnavirus sp.]                                1
+cell wall-associated hydrolase [Aggregatibacter aphrophilus NJ8700]                       1
+tenascin XB, isoform CRA_e [Homo sapiens]                                                 1
+Name: Name, Length: 181, dtype: int64
