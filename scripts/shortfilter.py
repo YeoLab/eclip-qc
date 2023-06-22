@@ -63,7 +63,6 @@ def ncbi_parse(result):
 # Read the blast n file
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
-num_seqs = df.size
 
 df2 = df[['qseqid','sseqid','pident']].copy()
 
@@ -133,6 +132,10 @@ for index,row in qseqidDf.iterrows():
 for i in range(len(toDrop)):
     qseqidDf = qseqidDf.drop(toDrop[i])
 #qseqidDf
+
+num_seqs = 0 
+for index,row in qseqidDf.iterrows():
+    num_seqs += int(row['frequency'])
 
 to_remove = []
 other_count = 0
