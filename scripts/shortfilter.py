@@ -63,7 +63,7 @@ def ncbi_parse(result):
 # Read the blast n file
 df = pd.read_csv(blast_tsv_file, header=None, sep='\t')
 df.columns = ['qseqid','sseqid','pident','length','mismatch','gapopen','qstart','qend','sstart','send','evalue','bitscore']
-
+original_numseqs1 = df.size
 df2 = df[['qseqid','sseqid','pident']].copy()
 
 # Read the blast x file
@@ -148,7 +148,7 @@ ncbiDf = qseqidDf.drop(index=to_remove)
 ncbiDf = ncbiDf.rename(columns{'qseqid':'name'})
 
 ncbiDf.loc[len(ncbiDf)] = ['Other', other_count]
-
+ncbiDf.loc[len(ncbiDf)] = ['Nonrelevant species', original_numseqs - num_seqs]
 
 #blastnSort1 = pd.DataFrame(ncbilist1, columns=['Name'])
 #blastnSort2 = blastnSort1['Name'].value_counts()
