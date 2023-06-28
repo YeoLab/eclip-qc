@@ -1,0 +1,12 @@
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+/var/spool/torque/mom_priv/jobs/32126766.tscc-mgr7.local.SC: line 7: from: command not found
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+import: unable to open X server `' @ error/import.c/ImportImageCommand/344.
+/var/spool/torque/mom_priv/jobs/32126766.tscc-mgr7.local.SC: line 16: syntax error near unexpected token `('
+/var/spool/torque/mom_priv/jobs/32126766.tscc-mgr7.local.SC: line 16: `with open("/home/s5xu/projects/eclip-qc/config.yaml", 'r') as stream:'
