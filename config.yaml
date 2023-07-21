@@ -2,8 +2,7 @@ DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
 DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd"
 
 
-N_downsample_reads: 100000
+N_downsample_reads: 10000
 
 SAMPLESPATH:
-  - "/home/bay001/projects/adri_chimeric_clips_20220811/temporary_data/crispr_clip_cas711_se_GRCh38_v2_small/results/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam"
-  - "/home/bay001/projects/adri_chimeric_clips_20220811/temporary_data/crispr_clip_cas711_se_GRCh38_v2_small/results/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_input_r1.umi.r1.fq.genome-mapped.bam"
+  - "/oasis/tscc/scratch/s5xu/share/LARP6.CTRL_IN1.umi.r1.fqdown.genome-mapped.bam"
