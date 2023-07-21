@@ -1,4 +1,4 @@
-# eclip-qc
+# eclip quality control
 
 ### Please make sure to read the information below before running the pipeline.
 
@@ -18,11 +18,13 @@ Snakemake has a ton of additional options, we are only using a few options here.
 
 `-p` helps to print the current running commands which is helpful for debugging.
 
-## Please make sure to update the path of your config file accordingly in the beginning of the script file `scripts/blastresults_piechart.py`. The path format should be similar to `/absolute/path/to/eclip-qc/config.yaml`.
+### Please make sure to update the path of your config file accordingly in the beginning of the script file `scripts/blastresults_piechart.py`. The path format should be similar to `/absolute/path/to/eclip-qc/config.yaml`.
 
-# Extra notes:
+### Extra notes:
 - For testing and debugging purposes, you may also look at the examples in the unmapped_counts or pieChart folder to have an idea what the output files will look like. 
 - For most important result information, pieChart and unmapped_counts folder should be where you want to check out for sure.
+
+# Start
 
 To run the pipeline:
 
