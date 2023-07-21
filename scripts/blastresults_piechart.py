@@ -193,9 +193,8 @@ for i in range(len(unrelated_hits_of_blastn)):
 # top_blastn_freq_table
 
 output_n_csv = piePathSample + '_n.csv'
-top_blastn_freq_table.to_csv(output_n_csv)
+top_blastn_freq_table.to_csv(output_n_csv, index=False)
 # top_blastn_freq_table = pd.read_csv(output_n_csv)
-# top_blastn_freq_table.drop(top_blastn_freq_table.columns[0], axis=1, inplace=True)
 
 num_seqs_of_interests_blastn = 0 
 for index,row in top_blastn_freq_table.iterrows():
@@ -220,9 +219,8 @@ filtered_top_blastn_of_interest.loc[len(filtered_top_blastn_of_interest)] = ['Ot
 filtered_top_blastn_of_interest.loc[len(filtered_top_blastn_of_interest)] = ['Nonrelevant species', original_blastn_numseqs - num_seqs_of_interests_blastn]
 
 output_n_interest_csv = piePathSample + '_n_interest.csv'
-filtered_top_blastn_of_interest.to_csv(output_n_interest_csv)
+filtered_top_blastn_of_interest.to_csv(output_n_interest_csv, index=False)
 # filtered_top_blastn_of_interest = pd.read_csv(output_n_interest_csv)
-# filtered_top_blastn_of_interest.drop(filtered_top_blastn_of_interest.columns[0], axis=1, inplace=True)
 
 blastn_pie1 = filtered_top_blastn_of_interest['frequency']
 blastn_pie1_label = filtered_top_blastn_of_interest['name']
@@ -392,7 +390,7 @@ for i in range(len(unrelated_hits_of_blastx)):
 #top_blastx_freq_table
 
 output_x_csv = piePathSample + '_x.csv'
-top_blastx_freq_table.to_csv(output_x_csv)
+top_blastx_freq_table.to_csv(output_x_csv, index=False)
 # top_blastx_freq_table = pd.read_csv('qseqidDf_x.csv')
 
 num_seqs_of_interests_blastx = 0 
@@ -418,7 +416,7 @@ filtered_top_blastx_of_interest.loc[len(filtered_top_blastx_of_interest)] = ['Ot
 filtered_top_blastx_of_interest.loc[len(filtered_top_blastx_of_interest)] = ['Nonrelevant species', original_blastx_numseqs - num_seqs_of_interests_blastx]
 
 output_x_interest_csv = piePathSample + '_x_interest.csv'
-filtered_top_blastx_of_interest.to_csv(output_x_interest_csv)
+filtered_top_blastx_of_interest.to_csv(output_x_interest_csv, index=False)
 # filtered_top_blastx_of_interest = pd.read_csv('qseqidDf_x_interest.csv')
 
 blastx_pie1 = filtered_top_blastx_of_interest['frequency']
