@@ -51,7 +51,7 @@ conserved hypothetical protein [Thiomonas sp. CB2],26
 F0F1 ATP synthase subunit gamma [Rhodoferax saidenbachensis],1
 hypothetical protein A8B94_11150 [Bordetella pertussis],6
 hypothetical protein BgiMline_034841 [Biomphalaria glabrata],1
-No_Species,47
+MBP8147486.1,1
 hypothetical protein Lal_00014939 [Lupinus albus],13
 conserved hypothetical protein [Cupriavidus taiwanensis],17
 MAG: hypothetical protein CFR70_13740 [Rhodocyclaceae bacterium],5
@@ -68,6 +68,7 @@ hypothetical protein Csp_D29540 [Curvibacter putative symbiont of Hydra magnipap
 hypothetical protein DAPPUDRAFT_267663 [Daphnia pulex],1
 hypothetical protein Csp_D29560 [Curvibacter putative symbiont of Hydra magnipapillata],6
 MAG: hypothetical protein CBARDMAM_5813 [uncultured Caballeronia sp.],6
+MBP8147928.1,1
 RNAase [Rickettsia endosymbiont of Proechinophthirus fluctus],5
 hypothetical protein TREES_T100019494 [Tupaia chinensis],12
 hypothetical protein M011DRAFT_522610 [Sporormia fimetaria CBS 119925],1
@@ -81,11 +82,13 @@ hypothetical protein FQA39_LY18817 [Lamprigera yunnana],1
 Cell wall-associated hydrolase [Arcanobacterium haemolyticum],1
 hypothetical protein U2A4042150018 [Corynebacterium striatum],2
 hypothetical protein [Methylomonas fluvii],3
+MCK9990637.1,5
 hypothetical protein FRC0190_01927 [Corynebacterium rouxii],6
 hypothetical protein FRACYDRAFT_202757 [Fragilariopsis cylindrus CCMP1102],1
 hypothetical protein GCM10010946_36720 [Undibacterium squillarum],9
 MULTISPECIES: hypothetical protein [Acidovorax],1
 "hypothetical protein CWB66_17895, partial [Pseudoalteromonas sp. S558]",1
+MBW0279191.1,1
 Bm13240 [Brugia malayi],2
 zinc finger protein OZF-like [Cervus canadensis],6
 "hypothetical protein P170DRAFT_371616, partial [Aspergillus steynii IBT 23096]",1
@@ -108,8 +111,11 @@ hypothetical protein IST495A_06013 [Burkholderia multivorans],1
 hypothetical protein COCHEDRAFT_1194902 [Bipolaris maydis C5],1
 "hypothetical protein CAPTEDRAFT_122939, partial [Capitella teleta]",1
 "PREDICTED: basic proline-rich protein-like, partial [Capra hircus]",4
+MBP6341141.1,1
+GFB07030.1,1
 dexamethasone-induced protein [Macaca mulatta],1
 30S ribosomal protein S17 [Methyloversatilis universalis],1
+GEU28357.1,11
 hypothetical protein L1887_60699 [Cichorium endivia],2
 hypothetical protein Lal_00008596 [Lupinus albus],4
 EamA family transporter [Acidovorax temperans],1
@@ -123,6 +129,7 @@ tenascin XB [Homo sapiens],2
 Cell wall-associated hydrolase [Chromobacterium violaceum],5
 hypothetical protein DSM25558_5494 [Agrobacterium sp. DSM 25558],1
 hypothetical protein Ae201684_019037 [Aphanomyces euteiches],1
+MCK9990638.1,1
 UNKNOWN [Stylonychia lemnae],2
 hypothetical protein DL98DRAFT_443369 [Cadophora sp. DSE1049],1
 hypothetical protein L2E82_53328 [Cichorium intybus],1
@@ -150,6 +157,7 @@ porin [Methyloversatilis universalis],1
 hypothetical protein [uncultured Chromatiales bacterium HF0200_41F04],13
 hypothetical protein [Pseudomonas phage ZCPA1],1
 hypothetical protein HALTITAN_3297 [Halomonas titanicae BH1],3
+HAV3900420.1,2
 ribokinase [uncultured bacterium A1Q1_fos_4],1
 hypothetical protein IEQ34_024692 [Dendrobium chrysotoxum],1
 hypothetical protein RUMOBE_04124 [Blautia obeum ATCC 29174],1
@@ -158,12 +166,14 @@ hypothetical protein FRC0190_02303 [Corynebacterium rouxii],1
 "hypothetical protein KUM_1451, partial [Taylorella asinigenitalis 14/45]",2
 heat resistance protein PsiE-GI [Stenotrophomonas maltophilia],1
 hypothetical protein FN846DRAFT_652799 [Sphaerosporella brunnea],1
+MBH2044060.1,1
 hypothetical protein Csp_D29600 [Curvibacter putative symbiont of Hydra magnipapillata],1
 hypothetical protein [Malikia granosa],1
 "elongation factor 1-alpha, partial [Homo sapiens]",1
 hypothetical protein Csp_D29570 [Curvibacter putative symbiont of Hydra magnipapillata],1
 class II poly(R)-hydroxyalkanoic acid synthase [Pseudomonas aeruginosa],1
 phosphonate C-P lyase system protein PhnG [Acidovorax temperans],1
+GFB02402.1,1
 hypothetical protein EJ07DRAFT_170242 [Lizonia empirigonia],1
 hypothetical protein RKHAN_00293 [Rhizobium sp. Khangiran2],3
 hypothetical protein L1887_60691 [Cichorium endivia],1
@@ -171,6 +181,7 @@ hypothetical protein L1887_60691 [Cichorium endivia],1
 "hypothetical protein KXX19_008146, partial [Aspergillus fumigatus]",1
 Uncharacterised protein [Alcaligenes faecalis],3
 Uncharacterized protein APZ42_005135 [Daphnia magna],9
+MWQ62713.1,2
 unnamed protein product [Brugia timori],3
 conserved hypothetical protein [Pediculus humanus corporis],1
 hypothetical protein THAOC_21439 [Thalassiosira oceanica],1
@@ -186,6 +197,8 @@ hypothetical protein SRAA_2358 [Serpentinimonas raichei],4
 "hypothetical protein Lal_00005175, partial [Lupinus albus]",1
 ankyrin repeat domain-containing protein 26-like isoform X1 [Canis lupus familiaris],1
 hypothetical protein GCM10019060_41130 [Novosphingobium pokkalii],2
+NCZ75185.1,1
+MBF8274660.1,1
 conserved hypothetical protein [Magnetospirillum gryphiswaldense MSR-1],1
 "putative DNA methylase, containing Zn-ribbon [Nitrospira defluvii]",1
 unnamed protein product [Enterobius vermicularis],1
@@ -197,7 +210,9 @@ DUF1801 domain-containing protein [Acidovorax sp. KKS102],1
 TPA: hypothetical protein BOS_23216 [Bos taurus],1
 hypothetical protein B9W48_18620 [Acinetobacter baumannii],3
 putative protein without homology [Lactobacillus crispatus ST1],1
+GEZ67243.1,1
 hypothetical protein E4T38_09949 [Aureobasidium subglaciale],1
+MBY7705685.1,1
 hypothetical protein FOE74_04880 [Rufibacter glacialis],1
 unnamed protein product [Didymodactylos carnosus],1
 hypothetical protein MYCGRDRAFT_45585 [Zymoseptoria tritici IPO323],1
@@ -208,7 +223,10 @@ MAG: hypothetical protein E6J78_16735 [Deltaproteobacteria bacterium],1
 unnamed protein product [Spirodela intermedia],2
 MAG: RNAase [Acetobacterium sp. MES1],1
 hypothetical protein AOQ84DRAFT_280961 [Glonium stellatum],1
+GEV75838.1,1
+MWP94644.1,1
 hypothetical protein DSM25559_2284 [Agrobacterium rosae],1
+HIV72309.1,1
 hypothetical protein FCM35_KLT06424 [Carex littledalei],1
 unnamed protein product [Allacma fusca],2
 Smad interacting-protein 1 [Homo sapiens],1
@@ -239,9 +257,12 @@ putative uncharacterized protein [Sutterella wadsworthensis CAG:135],2
 "LEPROTL1 isoform 8, partial [Pan troglodytes]",1
 hypothetical protein G6F32_010774 [Rhizopus arrhizus],1
 hypothetical protein HPS_1373 [Glaesserella parasuis 29755],1
+NBI65131.1,1
 LOW QUALITY PROTEIN: lymphocyte-specific protein 1-like [Nomascus leucogenys],1
 hypothetical protein GCM10018980_77420 [Streptomyces capoamus],1
+NBW49199.1,1
 hypothetical protein EJ07DRAFT_150079 [Lizonia empirigonia],1
+MBA2756481.1,1
 hypothetical protein CUC08_Gglean000089 [Alternaria sp. MG1],1
 hypothetical protein BO70DRAFT_404746 [Aspergillus heteromorphus CBS 117.55],2
 hypothetical protein BN2475_120167 [Paraburkholderia ribeironis],3
@@ -249,6 +270,7 @@ uncharacterized protein BO70DRAFT_407992 [Aspergillus heteromorphus CBS 117.55],
 hypothetical protein PROSTU_01098 [Providencia stuartii ATCC 25827],1
 alpha-D-ribose 1-methylphosphonate 5-triphosphate diphosphatase [Acidovorax temperans],1
 hypothetical protein F4804DRAFT_193991 [Jackrogersella minutella],1
+MBA4060698.1,1
 retron-type RNA-directed DNA polymerase [uncultured bacterium],1
 peptidase [Pseudomonas simiae],1
 hypothetical protein VARIO8X_60339 [Burkholderiales bacterium 8X],2
@@ -268,6 +290,7 @@ phosphonate C-P lyase system protein PhnK [Acidovorax sp. CF316],1
 "MAG: hypothetical protein LQ341_005378, partial [Variospora aurantia]",1
 putative membrane protein [Burkholderia sp. RPE67],1
 hypothetical protein AGR8A_Lc20187 [Agrobacterium fabrum str. J-07],1
+MCP9769255.1,1
 hypothetical protein A8B94_11145 [Bordetella pertussis],2
 hypothetical protein Lal_00015036 [Lupinus albus],1
 hypothetical protein GX50_07798 [Emmonsia crescens],1
@@ -280,6 +303,7 @@ conserved hypothetical protein [Listeria monocytogenes J2818],1
 "putative cell wall-associated hydrolase, partial [Acinetobacter baumannii 1043903]",1
 PREDICTED: putative glycerol kinase 5 [Galeopterus variegatus],2
 hypothetical protein Llan_1814 [Legionella lansingensis],1
+NXA16687.1,1
 hypothetical protein CNECB9_4760005 [Cupriavidus necator],1
 MAG: hypothetical protein BWY89_02061 [Bacteroidetes bacterium ADurb.BinA012],1
 protein of unknown function [Stenotrophomonas maltophilia],1
@@ -289,6 +313,7 @@ collagen alpha-1(I) chain-like [Dipodomys spectabilis],1
 lysine--tRNA ligase [Acidovorax sp. BoFeN1],1
 hypothetical protein [uncultured bacterium],2
 "hypothetical protein KXX34_008752, partial [Aspergillus fumigatus]",1
+HAJ06172.1,1
 MAG: hypothetical protein A2486_10500 [Burkholderiales bacterium RIFOXYC12_FULL_65_23],1
 hypothetical protein BDFG_09352 [Blastomyces dermatitidis ATCC 26199],1
 uncharacterized protein LOC115894791 [Rhinopithecus roxellana],1
@@ -299,9 +324,11 @@ hypothetical protein NGSS3160_11820 [Neisseria gonorrhoeae],1
 ATF6B protein [Homo sapiens],1
 ubiquitin-conjugating enzyme E2 D2-like [Lagopus leucura],1
 nitrite/sulfite reductase [Acidovorax temperans],1
+NDY91216.1,2
 "hCG2039686, partial [Homo sapiens]",1
 unnamed protein product [Homo sapiens],1
 hypothetical protein Lal_00004262 [Lupinus albus],1
+HAI7155063.1,1
 hypothetical protein ALP04_102182 [Pseudomonas amygdali pv. sesami],1
 hypothetical protein EVAR_47607_1 [Eumeta japonica],1
 hypothetical protein HPP92_018373 [Vanilla planifolia],1
@@ -356,6 +383,8 @@ LOW QUALITY PROTEIN: identified by MetaGeneAnnotator [Elysia marginata],1
 hypothetical protein HMPREF0305_11076 [Corynebacterium pseudogenitalium ATCC 33035],1
 Uncharacterised protein [Neisseria subflava],1
 hypothetical protein P153DRAFT_179268 [Dothidotthia symphoricarpi CBS 119687],1
+MCM2347508.1,1
 RNA-binding protein [Polaromonas glacialis],1
 "hypothetical protein BDE02_11G065600, partial [Populus trichocarpa]",1
 elongation factor Tu [Salmonella enterica subsp. enterica serovar Typhi],1
+MBS1157359.1,1
