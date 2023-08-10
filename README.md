@@ -32,5 +32,5 @@ To run the pipeline:
 # load the latest snakemake package (This has been pre-installed for you on TSCC and will provide the path to the snakemake command)
 module load snakemake/7.17.1
 # use the command format below to start a fresh run or continue an unfinished run
-snakemake --snakefile /path/to/Snakefile -j 8 --configfile /path/to/config.yaml --use-conda --cores 8 -latency-wait 30 -p
+snakemake --snakefile /path/to/Snakefile -j 8 --configfile /path/to/config.yaml --use-conda --cores 8 --latency-wait 30 -p
 ```
