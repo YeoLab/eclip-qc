@@ -1,13 +1,6 @@
-# eclip-qc
+# eclip quality control
 
-To run the pipeline:
-
-```bash
-# load the latest snakemake package (This has been pre-installed for you on TSCC and will provide the path to the snakemake command)
-module load snakemake/7.17.1
-# use the command format below to start a fresh run or continue an unfinished run
-snakemake --snakefile /path/to/Snakefile -j 8 --configfile /path/to/config.yaml --use-conda --cores 8 -latency-wait 30 -p
-```
+### Please make sure to read the information below before running the pipeline.
 
 Snakemake has a ton of additional options, we are only using a few options here.
 
@@ -25,7 +18,19 @@ Snakemake has a ton of additional options, we are only using a few options here.
 
 `-p` helps to print the current running commands which is helpful for debugging.
 
+### Please make sure to update the path of your config file accordingly in the beginning of the script file `scripts/blastresults_piechart.py`. The path format should be similar to `/absolute/path/to/eclip-qc/config.yaml`.
 
-# Extra notes:
+### Extra notes:
 - For testing and debugging purposes, you may also look at the examples in the unmapped_counts or pieChart folder to have an idea what the output files will look like. 
 - For most important result information, pieChart and unmapped_counts folder should be where you want to check out for sure.
+
+# Start
+
+To run the pipeline:
+
+```bash
+# load the latest snakemake package (This has been pre-installed for you on TSCC and will provide the path to the snakemake command)
+module load snakemake/7.17.1
+# use the command format below to start a fresh run or continue an unfinished run
+snakemake --snakefile /path/to/Snakefile -j 8 --configfile /path/to/config.yaml --use-conda --cores 8 --latency-wait 30 -p
+```
