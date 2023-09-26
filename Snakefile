@@ -50,6 +50,28 @@ rule unmapped_fasta:
     shell:
         "samtools fasta {input} > {output}"
 
+rule unmapped_blast_synthetic:
+    threads: 8
+    params:
+        error_file = "unmapped_count/blast.err",
+        out_file = "unmapped_count/blast_synthetic.out",
+        run_time = "24:00:00",
+        memory = "200",
+        job_name = "blast",
+        DB = config["DB_synthetic"],
+        outfmt = 6,
+        max_target_seqs = 5,
+        max_hsps = 1,
+        num_threads = 8
+    input:
+        "unmapped_counts/{SAMPLES}_unmapped_downsampled.fasta"
+    output:
+        "unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blast_synthetic.tsv"
+    conda:
+        "envs/blast.yaml"
+    shell:
+        "blastn -db {params.DB} -query {input} -out {output} -outfmt {params.outfmt} -max_target_seqs {params.max_target_seqs} -max_hsps {params.max_hsps} -num_threads {params.num_threads}"
+
 rule unmapped_blastn:
     threads: 8
     params:
@@ -97,7 +119,8 @@ rule unmapped_blastx:
 rule unmapped_pie:
     input:
        input1="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastn.tsv",
-       input2="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv"
+       input2="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blastx.tsv",
+       input3="unmapped_counts/{SAMPLES}_unmappedblast_downsampled_blast_synthetic.tsv"
     output:
         "pieChart/{SAMPLES}.png"
     conda:
