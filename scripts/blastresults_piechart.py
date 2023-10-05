@@ -200,7 +200,7 @@ for index,row in origin_blastn2.iterrows():
         potential_n = []
 
 top_blastn_freq_table = pd.DataFrame(top_blastn_freq_dict.items(), columns=['qseqid', 'frequency'])
-output_n_csv = 'filtered_' + piePathSample + '_n.csv'
+output_n_csv = piePathSample + '_filtered_n.csv'
 top_blastn_freq_table.to_csv(output_n_csv, index=False)
 
 print('output the filtered', output_n_csv, 'n.csv file')
@@ -333,7 +333,7 @@ for index,row in origin_blastx2.iterrows():
         potential_x = []
 
 top_blastx_freq_table = pd.DataFrame(top_blastx_freq_dict.items(), columns=['qseqid', 'frequency'])
-output_x_csv = 'filtered_' + piePathSample + '_x.csv'
+output_x_csv = piePathSample + '_filtered_x.csv'
 top_blastx_freq_table.to_csv(output_x_csv, index=False)
 
 print('output the filtered', piePathSample, 'x.csv file')
