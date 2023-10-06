@@ -41,7 +41,10 @@ else:
             before_segment = fasta_dict[qseqid][:qstart-1]
             after_segment = fasta_dict[qseqid][qend:]
             updated_sequence = before_segment + after_segment
-            fasta_dict[qseqid] = updated_sequence
+            if updated_sequence == "":
+                del fasta_dict[qseqid]
+            else:
+                fasta_dict[qseqid] = updated_sequence
         else:
             print(f"Warning: {qseqid} not found in fasta_dict")
             sys.exit(1)            
