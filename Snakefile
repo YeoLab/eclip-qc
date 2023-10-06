@@ -13,7 +13,7 @@ for eachSample in SAMPLESPATH:
     
 rule all:
     input:
-        expand(os.path.join("unmapped_counts", "{sample}" + "_unmapped_downsampled_filtered.fasta"), sample=list(d.keys()))
+        expand(os.path.join("pieChart", "{sample}" + ".png"), sample=list(d.keys()))
 
 rule unmapped_count:
     input:
