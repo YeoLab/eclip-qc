@@ -7,9 +7,8 @@ d = {}
 SAMPLES = []
 for eachSample in SAMPLESPATH:
     basename = os.path.basename(eachSample)
-    newBase = basename.replace('.genome-mapped.bam', '')
-    SAMPLES.append(newBase)
-    d[newBase] = eachSample
+    SAMPLES.append(basename)
+    d[basename] = eachSample
     
 rule all:
     input:
