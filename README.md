@@ -1,4 +1,4 @@
-# eclip quality control
+# Eclip Quality Control
 
 ### Description
 From the RBP eClip pipeline, a sample may contain sequences that are unmapped to the genome of interest. We want to blast these unmapped sequences to interpret what a majority of these sequences are. 
