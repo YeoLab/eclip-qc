@@ -405,10 +405,17 @@ for index,row in filtered_other_blastn_of_interest.iterrows():
         blastn_bar_sum[2] += row['frequency']
     else:
         blastn_bar_sum[3] += row['frequency']
-        
-bars_n = ax2.bar(blastn_bar_category,blastn_bar_sum)
+
+colors = ['red', 'blue', 'green', 'orange'] 
+colors2 = ['red', 'blue', 'green']   
+
+#blasn barchat for other interest categories
+bars_n = ax2.bar(blastn_bar_category,blastn_bar_sum, color = colors)
 ax2.set_ylabel('num of hits')
-ax2.set_xlabel('Categories')
+ax2legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors]
+ax2.legend(ax2legend_handles, blastn_bar_category, title="Categories", loc="upper left")
+ax2.xticks([])
+#ax2.set_xlabel('Categories')
 
 for bar in bars_n:
     yval = bar.get_height()
@@ -419,9 +426,13 @@ ax7_three_seqs_freq = [x[0] for x in top_three_blastn]
 ax7_three_seqs_freq.reverse()
 ax7_three_seqs_label = [x[1] for x in top_three_blastn]
 ax7_three_seqs_label.reverse()
-ax7.barh(ax7_three_seqs_label,ax7_three_seqs_freq, align='center')
+ax7.barh(ax7_three_seqs_label,ax7_three_seqs_freq, align='center', color = colors2)
 ax7.set_xlabel('Frequency')
 ax7.set_title('Top Three Hits For Blast_n')
+
+ax7legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors2]
+ax7.legend(ax7legend_handles, ax7_three_seqs_label, title="Categories", loc="lower right")
+ax7.xticks([])
 
 ### Get the percentage of the the blast n/x mapped results
 # for ax5
@@ -491,10 +502,15 @@ for index,row in filtered_other_blastx_of_interest.iterrows():
         blastx_bar_sum[2] += row['frequency']
     else:
         blastx_bar_sum[3] += row['frequency']
-        
-bars_x = ax4.bar(blastx_bar_category,blastx_bar_sum)
+
+#blastx barchart for other interest categories       
+bars_x = ax4.bar(blastx_bar_category,blastx_bar_sum, color = colors)
 ax4.set_ylabel('num of hits')
-ax4.set_xlabel('Categories')
+ax4legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors]
+ax4.legend(ax4legend_handles, blastx_bar_category, title="Categories", loc="upper left")
+ax4.xticks([])
+#ax4.set_xlabel('Categories')
+
 
 for bar in bars_x:
     yval = bar.get_height()
@@ -505,9 +521,13 @@ ax8_three_seqs_freq = [x[0] for x in top_three_blastx]
 ax8_three_seqs_freq.reverse()
 ax8_three_seqs_label = [x[1] for x in top_three_blastx]
 ax8_three_seqs_label.reverse()
-ax8.barh(ax8_three_seqs_label,ax8_three_seqs_freq, align='center')
+ax8.barh(ax8_three_seqs_label,ax8_three_seqs_freq, align='center', color = colors2)
 ax8.set_xlabel('Frequency')
 ax8.set_title('Top Three Hits For Blast_x')
+
+ax8legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors2]
+ax8.legend(ax8legend_handles, ax8_three_seqs_label, title="Categories", loc="lower right")
+ax8.xticks([])
 
 ### Get the percentage of the the blast n/x mapped results
 # for ax6
