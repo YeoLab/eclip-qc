@@ -15,7 +15,14 @@ import math
 import sys
 import os
 
-with open("/home/s5xu/scratch/eclip-qc/config.yaml", 'r') as stream:
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+
+# Make sure to modify the path to your config.yaml below!!!
+
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
+with open("/home/s5xu/scratch/temp_eclip/eclip-qc/config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
 blastn_file = sys.argv[1]

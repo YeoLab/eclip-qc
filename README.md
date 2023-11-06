@@ -1,4 +1,4 @@
-# eclip quality control
+# Eclip Quality Control
 
 ### Description
 From the RBP eClip pipeline, a sample may contain sequences that are unmapped to the genome of interest. We want to blast these unmapped sequences to interpret what a majority of these sequences are. 
@@ -31,7 +31,7 @@ From the RBP eClip pipeline, a sample may contain sequences that are unmapped to
 2. Piechart file [sample].png
 - Blastx/blastn mapping percentage: indicates what percentage of the total sequences blasted had a result
 - Filtered blastn/blastx piechart: indicates what percentage of the total sequences are of the top six hits 
-- Top Six Hits for Blastn/Blastx: the top six hits for blastn/blastx and the frequency of these hits
+- Top Six Hits for Blastn/Blastx: the top six hits for blastn/blastx and the frequency of these hits. There might appear "No_Species" in the figures. It means our databases cannot find a name for the `sseqid` for that specific hit. When larger database is employed in the future, the issue should be solved.
 - Blastn/Blastx Breakdown of ‘Other’ of Interest Section: From the results within the ‘Other’ category, a breakdown of the number of hits of the results that are in categories of Homo sapiens, Bacteria/Virus, or Mus Musculus 
 
 
