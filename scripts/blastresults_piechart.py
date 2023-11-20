@@ -22,7 +22,7 @@ import os
 
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
-with open("/home/s5xu/scratch/temp_eclip/eclip-qc/config.yaml", 'r') as stream:
+with open("./config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
 blastn_file = sys.argv[1]

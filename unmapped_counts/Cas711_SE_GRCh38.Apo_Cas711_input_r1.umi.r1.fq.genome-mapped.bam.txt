@@ -1,2 +1,0 @@
-14561540
-/home/bay001/projects/adri_chimeric_clips_20220811/temporary_data/crispr_clip_cas711_se_GRCh38_v2_small/results
