@@ -348,7 +348,7 @@ print('output the filtered', piePathSample, 'x.csv file')
 # Data visualization/ploting
 
 #matplotlib to build the piechart
-fig, ((ax5, ax1, ax7, ax2), (ax6, ax3, ax8, ax4)) = plt.subplots(2, 4, figsize=(15, 7))
+fig, ((ax5, ax1, ax7, ax2), (ax6, ax3, ax8, ax4)) = plt.subplots(2, 4, figsize=(25, 10))
 fig.tight_layout(w_pad = 6, h_pad=7)
 plt.subplots_adjust(bottom=0, right=1.5, top=1.5)
 ax1.set_title('filtered blastn piechart')
@@ -413,7 +413,7 @@ colors2 = ['red', 'blue', 'green']
 bars_n = ax2.bar(blastn_bar_category,blastn_bar_sum, color = colors)
 ax2.set_ylabel('num of hits')
 ax2legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors]
-ax2.legend(ax2legend_handles, blastn_bar_category, title="Categories", loc="upper left")
+ax2.legend(ax2legend_handles, blastn_bar_category, title="Categories", loc="upper left", fontsize="8")
 ax2.set_xticks([])
 #ax2.set_xlabel('Categories')
 
@@ -431,7 +431,7 @@ ax7.set_xlabel('Frequency')
 ax7.set_title('Top Three Hits For Blast_n')
 
 ax7legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors2]
-ax7.legend(ax7legend_handles, ax7_three_seqs_label, title="Categories", loc="lower right")
+ax7.legend(ax7legend_handles, ax7_three_seqs_label, title="Categories", loc="lower right", fontsize="8")
 ax7.set_yticks([])
 
 ### Get the percentage of the the blast n/x mapped results
@@ -507,7 +507,7 @@ for index,row in filtered_other_blastx_of_interest.iterrows():
 bars_x = ax4.bar(blastx_bar_category,blastx_bar_sum, color = colors)
 ax4.set_ylabel('num of hits')
 ax4legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors]
-ax4.legend(ax4legend_handles, blastx_bar_category, title="Categories", loc="upper left")
+ax4.legend(ax4legend_handles, blastx_bar_category, title="Categories", loc="upper left", fontsize="8")
 ax4.set_xticks([])
 #ax4.set_xlabel('Categories')
 
@@ -526,7 +526,7 @@ ax8.set_xlabel('Frequency')
 ax8.set_title('Top Three Hits For Blast_x')
 
 ax8legend_handles = [plt.Rectangle((0, 0), 1, 1, color=color) for color in colors2]
-ax8.legend(ax8legend_handles, ax8_three_seqs_label, title="Categories", loc="lower right")
+ax8.legend(ax8legend_handles, ax8_three_seqs_label, title="Categories", loc="lower right", fontsize="8")
 ax8.set_yticks([])
 
 ### Get the percentage of the the blast n/x mapped results
