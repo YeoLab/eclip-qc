@@ -1,0 +1,26 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Building DAG of jobs...
+Falling back to greedy scheduler because no default solver is found for pulp (you have to install either coincbc or glpk).
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=1000, disk_mb=1000
+Select jobs to execute...
+
+[Tue Dec  5 17:35:56 2023]
+rule unmapped_count:
+    input: samplefiles/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam
+    output: unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam.txt
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample=Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/scratch/s5xu/33984770.tscc-mgr7.local
+
+
+        samtools view -cf 4 samplefiles/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam > unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam.txt
+        echo samplefiles >> unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam.txt
+        
+Activating singularity image /oasis/tscc/scratch/s5xu/eclip_test/eclip-qc/.snakemake/singularity/d47abef6feeaa361ea916a2386f33061.simg
+[Tue Dec  5 17:36:02 2023]
+Finished job 0.
+1 of 1 steps (100%) done

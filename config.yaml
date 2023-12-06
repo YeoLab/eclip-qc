@@ -1,4 +1,4 @@
-DB_synthetic: "/home/s5xu/projects/data/db/synthetic"
+DB_synthetic: "/projects/ps-yeolab3/s5xu/data/db/synthetic"
 DB_N: "/projects/ps-yeolab3/bay001/annotations/nr/nt"
 DB_X: "/projects/ps-yeolab3/bay001/annotations/nr/nr.dmnd"
 

@@ -88,7 +88,7 @@ origin_blastn2 = origin_blastn[['qseqid','sseqid','pident']].copy()
 original_blastn_numseqs = len(origin_blastn)
 
 priority = origin_blastn2['sseqid'].value_counts().to_dict()
-priority['Homo sapiens'] = 1000000000
+priority['Homo sapiens'] = max(priority.values()) + 100
 priority['Mus musculus'] = priority['Homo sapiens'] - 1
 priority['bacteria'] = priority['Mus musculus'] - 1
 priority['bacterium'] = priority['bacteria']
@@ -221,7 +221,7 @@ origin_blastx2 = origin_blastx[['qseqid','sseqid','pident']].copy()
 original_blastx_numseqs = len(origin_blastx)
 
 priority = origin_blastx2['sseqid'].value_counts().to_dict()
-priority['Homo sapiens'] = 1000000000
+priority['Homo sapiens'] = max(priority.values()) + 100
 priority['Mus musculus'] = priority['Homo sapiens'] - 1
 priority['bacteria'] = priority['Mus musculus'] - 1
 priority['bacterium'] = priority['bacteria']
