@@ -28,10 +28,10 @@ From the RBP eClip pipeline, a sample may contain sequences that are unmapped to
 
 1. `unmapped_counts/*unmappedblast_downsampled_blastn.tsv` and `unmapped_counts/*unmappedblast_downsampled_blastx.tsv` are the key files to look at. These files contain the blast results that are used to build the figures which are information-limited. In general, people would want to look at these blast files in different aspects.
 
-2. Piechart file: `pieChart/ [sample].png` contains all the figures that summarize unmapped sequences for ths sample.
+2. Piechart file [sample].png
 - Blastx/blastn mapping percentage: indicates what percentage of the total sequences blasted had a result
 - Filtered blastn/blastx piechart: indicates what percentage of the total sequences are of the top six hits 
-- Top Three Hits for Blastn/Blastx: the top three hits for blastn/blastx and the frequency of these hits. There might appear "No_Species" in the figures. It means our databases cannot find a name for the `sseqid` for that specific hit. When larger database is employed in the future, the issue should be solved.
+- Top Six Hits for Blastn/Blastx: the top six hits for blastn/blastx and the frequency of these hits. There might appear "No_Species" in the figures. It means our databases cannot find a name for the `sseqid` for that specific hit. When larger database is employed in the future, the issue should be solved.
 - Blastn/Blastx Breakdown of ‘Other’ of Interest Section: From the results within the ‘Other’ category, a breakdown of the number of hits of the results that are in categories of Homo sapiens, Bacteria/Virus, or Mus Musculus 
 
 3. Sometimes, the pipeline can fail due to unstable internet, simply rerun the pipeline with `--rerun-incomplete` parameter in the command line might solve the problem. If the pipeline failure is obviously cause by other errors, if using cluster, `stderr` and `stdout` folders will record pipeline progress for each rule and each sample. Therefore, `stderr` will record the error messages if the pipeline fails. Hope this is helpful. Otherwise, users can refer to snakemake message logs at `cd absolute/path/eclip-qc/.snakemake/log/` to find the error messages.
@@ -64,7 +64,6 @@ Snakemake has a ton of additional parameters, we are only using a few here.
 ### Extra notes:
 - For testing and debugging purposes, you may also look at the examples in the unmapped_counts or pieChart folder to have an idea what the output files will look like. 
 - For most important result information, pieChart and unmapped_counts folder should be where you want to check out for sure.
-- The default config.yaml file contains paths to sample files (which can be found in the samplefiles folder). These are smaller example bam files and can be used for a test run to see how the outputs will look like.
 
 # Start
 
