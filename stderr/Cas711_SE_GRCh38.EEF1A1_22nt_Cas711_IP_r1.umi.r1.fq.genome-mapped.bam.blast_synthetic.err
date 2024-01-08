@@ -1,0 +1,24 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Building DAG of jobs...
+Falling back to greedy scheduler because no default solver is found for pulp (you have to install either coincbc or glpk).
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=1000, disk_mb=1000
+Select jobs to execute...
+
+[Tue Dec  5 17:40:35 2023]
+rule unmapped_blast_synthetic:
+    input: unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmapped_downsampled.fasta
+    output: unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmappedblast_downsampled_blast_synthetic.tsv
+    jobid: 0
+    reason: Forced execution
+    wildcards: SAMPLES=Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam
+    threads: 4
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/scratch/s5xu/33984797.tscc-mgr7.local
+
+blastn -db /projects/ps-yeolab3/s5xu/data/db/synthetic -query unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmapped_downsampled.fasta -out unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmappedblast_downsampled_blast_synthetic.tsv -outfmt 6 -max_target_seqs 5 -max_hsps 1 -num_threads 4
+Activating singularity image /oasis/tscc/scratch/s5xu/eclip_test/eclip-qc/.snakemake/singularity/8bfe430832a6a664e41f90272a356460.simg
+[Tue Dec  5 17:41:31 2023]
+Finished job 0.
+1 of 1 steps (100%) done

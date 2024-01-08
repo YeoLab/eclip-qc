@@ -1,0 +1,2 @@
+samtools view -f 4 -s 0.0694107031304227 samplefiles/Cas711_SE_GRCh38.Apo_Cas711_input_r1.umi.r1.fq.genome-mapped.bam>unmapped_counts/Cas711_SE_GRCh38.Apo_Cas711_input_r1.umi.r1.fq.genome-mapped.bam_unmapped_downsampled.bam
+Nodes:        tscc-1-2

@@ -1,0 +1,23 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Building DAG of jobs...
+Falling back to greedy scheduler because no default solver is found for pulp (you have to install either coincbc or glpk).
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=1000, disk_mb=1000
+Select jobs to execute...
+
+[Tue Dec  5 17:37:21 2023]
+rule unmapped_bam:
+    input: unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam.txt
+    output: unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmapped_downsampled.bam
+    jobid: 0
+    reason: Forced execution
+    wildcards: SAMPLES=Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/scratch/s5xu/33984777.tscc-mgr7.local
+
+python3 scripts/downsampled_seqs.py -input unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam.txt -N_downsample 1000 -output unmapped_counts/Cas711_SE_GRCh38.EEF1A1_22nt_Cas711_IP_r1.umi.r1.fq.genome-mapped.bam_unmapped_downsampled.bam
+Activating singularity image /oasis/tscc/scratch/s5xu/eclip_test/eclip-qc/.snakemake/singularity/9bc282f10f2bd7caa1d5c6438d79228f.simg
+[Tue Dec  5 17:37:32 2023]
+Finished job 0.
+1 of 1 steps (100%) done
